@@ -1,5 +1,3 @@
-const data = require('./data')
-
 class DataSet {
   constructor (array, caret = 0) {
     this.data = array
@@ -18,7 +16,11 @@ class DataSet {
   }
 
   take (number = 1) {
-    return new DataSet(this.data.slice(this.caret, this.caret + number + 1), this.caret + number)
+    return new DataSet(this.data.slice(this.caret, this.caret + number), this.caret + number)
+  }
+
+  length () {
+    return this.data.length
   }
 
   takeRandom (number = 1) {
@@ -114,11 +116,4 @@ function randomTakes (len, num, collection = []) {
   return collection.length === num ? collection : randomTakes(len, num, collection)
 }
 
-const dataSet = new DataSet(data)
-const x = dataSet
-  .exists('company')
-  .has('index')
-  .select('age')
-  .gt(24)
-  .take(4)
-console.log(x)
+module.exports = DataSet
