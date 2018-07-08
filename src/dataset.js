@@ -1,3 +1,5 @@
+const sleeve = require('sleeve')
+
 class DataSet {
   constructor (array, caret = 0) {
     this.data = array
@@ -6,12 +8,16 @@ class DataSet {
   }
 
   exists (prop) {
-    const data = this.data.filter(el => prop in el)
+    const data = this.data.filter(el => findProp(el, prop) !== undefined)
     return new DataSet(data)
   }
 
   has (prop) {
-    const data = this.data.filter(el => Array.isArray(el[prop]) ? el[prop].length : el[prop])
+    const data = this.data.filter(el => {
+        const value = findProp(el, prop)
+        return Array.isArray(value) ? value.length : value
+      }
+    )
     return new DataSet(data)
   }
 
@@ -37,46 +43,46 @@ class DataSet {
 
   eq (value) {
     if (!this.selector) return this
-    const data = this.data.filter(el => el[this.selector] === value)
+    const data = this.data.filter(el => findProp(el, this.selector) === value)
     return new DataSet(data)
   }
 
   gt (value) {
     if (!this.selector) return this
-    const data = this.data.filter(el => el[this.selector] > value)
+    const data = this.data.filter(el => findProp(el, this.selector) > value)
     return new DataSet(data)
   }
 
   lt (value) {
     if (!this.selector) return this
-    const data = this.data.filter(el => el[this.selector] < value)
+    const data = this.data.filter(el => findProp(el, this.selector) < value)
     return new DataSet(data)
   }
 
   gte (value) {
     if (!this.selector) return this
-    const data = this.data.filter(el => el[this.selector] >= value)
+    const data = this.data.filter(el => findProp(el, this.selector) >= value)
     return new DataSet(data)
   }
 
   lte (value) {
     if (!this.selector) return this
-    const data = this.data.filter(el => el[this.selector] <= value)
+    const data = this.data.filter(el => findProp(el, this.selector) <= value)
     return new DataSet(data)
   }
 
   asc (prop, type = 'string') {
-    if (this.data[this.caret] && this.data[this.caret][prop]) {
+    if (this.data[this.caret] && findProp(this.data[this.caret], prop)) {
       let data = []
       switch (type) {
         case 'num':
         case 'number':
-          data = this.data.slice().sort((a, b) => a[prop] - b[prop])
+          data = this.data.slice().sort((a, b) => findProp(a, prop) - findProp(b, prop))
           break
         case 'string':
         case 'str':
         default:
-          data = this.data.slice().sort((a, b) => a[prop].localeCompare(b[prop]))
+          data = this.data.slice().sort((a, b) => findProp(a, prop).localeCompare(findProp(b, prop)))
       }
       return new DataSet(data)
     }
@@ -84,17 +90,17 @@ class DataSet {
   }
 
   desc (prop, type = 'string') {
-    if (this.data[this.caret] && this.data[this.caret][prop]) {
+    if (this.data[this.caret] && findProp(this.data[this.caret], prop)) {
       let data = []
       switch (type) {
         case 'num':
         case 'number':
-          data = this.data.slice().sort((a, b) => b[prop] - a[prop])
+          data = this.data.slice().sort((a, b) => findProp(b, prop) - findProp(a, prop))
           break
         case 'string':
         case 'str':
         default:
-          data = this.data.slice().sort((a, b) => b[prop].localeCompare(a[prop]))
+          data = this.data.slice().sort((a, b) => findProp(b, prop).localeCompare(findProp(a, prop)))
       }
       return new DataSet(data)
     }
@@ -102,12 +108,21 @@ class DataSet {
   }
 
   sum (prop) {
-    return this.data.reduce((sum, el) => !isNaN(el[prop]) ? sum + el[prop] : sum, 0)
+    return this.data.reduce((sum, el) => {
+      const value = findProp(el, prop)
+      return !isNaN(value) ? sum + value : sum
+    }, 0)
   }
 
   values () {
     return this.data
   }
+}
+
+function findProp (el, prop) {
+  if (el.hasOwnProperty(prop)) return el[prop]
+  const result = sleeve(el, prop, () => {})
+  return result
 }
 
 function randomTakes (len, num, collection = []) {

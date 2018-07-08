@@ -43,7 +43,6 @@ module.exports = [
     "balance": "$2,172.67",
     "age": 49,
     "name": {
-      "first": "Ashley",
       "last": "Franklin"
     },
     "company": "SUREMAX",
@@ -79,7 +78,7 @@ module.exports = [
     "balance": "$3,823.04",
     "age": 30,
     "name": {
-      "first": "Bernadette",
+      "first": null,
       "last": "Brewer"
     },
     "company": "INTERFIND",
