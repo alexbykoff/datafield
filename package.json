@@ -12,6 +12,6 @@
     "mocha": "^5.2.0"
   },
   "dependencies": {
-    "sleeve": "^0.1.0"
+    "sleeve": "^0.2.1"
   }
 }

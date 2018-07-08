@@ -26,9 +26,14 @@ describe('Suite 1', function () {
   })
 
   describe('Nested props', function () {
-    it('should find nested prop', function () {
+    it('should find values for nested prop', function () {
       const data = dataSet.has("name.first")
       assert.equal(data.length(), 98)
+    })
+
+    it('should find nested prop', function () {
+      const data = dataSet.exists("name.first")
+      assert.equal(data.length(), 99)
     })
 
     it('should remove all entries', function () {
