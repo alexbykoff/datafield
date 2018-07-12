@@ -5,7 +5,7 @@ const data = require('./data')
 const dataSet = new DataSet(data)
 
 describe('Suite 1', function () {
-  describe('data array should be present', function () {
+  describe('Data array', function () {
     it('should contain data for 100 entries', function () {
       assert.equal(data.length, 100)
     })
@@ -43,8 +43,12 @@ describe('Suite 1', function () {
   })
 
   describe('Sums', function () {
-    it('should sum age values from 100 entries', function () {
-      assert.equal(dataSet.sum('age'), 4317)
+    it('should sum age values from 100 entries WITH type coercion', function () {
+      assert.equal(dataSet.sum('age', false), 4317)
+    })
+
+    it('should sum age values from 100 entries WITHOUT type coercion', function () {
+      assert.equal(dataSet.sum('age'), 4293)
     })
 
     it('should sum age from selected sources', function () {
@@ -52,11 +56,23 @@ describe('Suite 1', function () {
       assert.equal(data.sum('age'), 2608)
     })
 
-    it('should sum ages from 2 selections', function () {
+    it('should sum ages from 2 selections without WITH type coercion', function () {
       const dataHigh = dataSet.select('age').gt(45)
       const dataLow = dataSet.select('age').lte(45)
-      const sum = dataHigh.sum('age') + dataLow.sum('age')
+      const sum = dataHigh.sum('age', false) + dataLow.sum('age', false)
       assert.equal(sum, 4317)
     })
   })
+
+  describe('Average', function () {
+    it('should sum get average for age WITH type coercion', function () {
+      assert.equal(dataSet.avg('age', false), 43.17)
+    })
+
+    it('should sum get average for age WITHOUT type coercion', function () {
+      assert.equal(dataSet.avg('age'), 43.36363636363637)
+    })
+
+  })
+
 })

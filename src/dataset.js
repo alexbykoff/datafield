@@ -47,6 +47,12 @@ class DataSet {
     return new DataSet(data)
   }
 
+  not (value) {
+    if (!this.selector) return this
+    const data = this.data.filter(el => findProp(el, this.selector) !== value)
+    return new DataSet(data)
+  }
+
   gt (value) {
     if (!this.selector) return this
     const data = this.data.filter(el => findProp(el, this.selector) > value)
@@ -107,11 +113,31 @@ class DataSet {
     return this
   }
 
-  sum (prop) {
+  sum (prop, strict = true) {
     return this.data.reduce((sum, el) => {
       const value = findProp(el, prop)
-      return !isNaN(value) ? sum + value : sum
+      if (strict) return typeof value === 'number' ? sum + value : sum
+      return !isNaN(value) ? sum + Number(value) : sum
     }, 0)
+  }
+
+  avg (prop, strict = true) {
+    let sum = 0, count = 0
+    this.data.forEach(el => {
+      const value = findProp(el, prop)
+      if (strict) {
+        if (typeof value === 'number') {
+          count++
+          sum += value
+        }
+      } else {
+        if (!isNaN(value)) {
+          count++
+          sum += Number(value)
+        }
+      }
+    })
+    return count ? sum / count : 0
   }
 
   values () {
@@ -121,8 +147,7 @@ class DataSet {
 
 function findProp (el, prop) {
   if (el.hasOwnProperty(prop)) return el[prop]
-  const result = sleeve(el, prop, () => {})
-  return result
+  return sleeve(el, prop)
 }
 
 function randomTakes (len, num, collection = []) {

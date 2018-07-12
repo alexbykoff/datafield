@@ -112,7 +112,7 @@ module.exports = [
     "guid": "10a52d72-f1b8-4a95-9a78-1f8b7cbd9fc8",
     "isActive": true,
     "balance": "$3,934.23",
-    "age": 24,
+    "age": "24",
     "name": {
       "first": "Tamika",
       "last": "Ramirez"
