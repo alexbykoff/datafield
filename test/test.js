@@ -65,14 +65,23 @@ describe('Suite 1', function () {
   })
 
   describe('Average', function () {
-    it('should sum get average for age WITH type coercion', function () {
+    it('should get average for age WITH type coercion', function () {
       assert.equal(dataSet.avg('age', false), 43.17)
     })
 
-    it('should sum get average for age WITHOUT type coercion', function () {
+    it('should get average for age WITHOUT type coercion', function () {
       assert.equal(dataSet.avg('age'), 43.36363636363637)
     })
+  })
 
+  describe('Median', function () {
+    it('should get median for age WITH type coercion', function () {
+      assert.equal(dataSet.median('age', false), 44)
+    })
+
+    it('should get median for age WITHOUT type coercion', function () {
+      assert.equal(dataSet.median('age'), 44)
+    })
   })
 
 })

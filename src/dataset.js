@@ -140,6 +140,32 @@ class DataSet {
     return count ? sum / count : 0
   }
 
+  median (prop, strict = true) {
+    const values = []
+    this.data.forEach(el => {
+      const value = findProp(el, prop)
+      if (strict) {
+        if (typeof value === 'number') {
+          values.push(value)
+        }
+      } else {
+        if (!isNaN(value)) {
+          values.push(Number(value))
+        }
+      }
+    })
+
+    if (values.length === 0) {
+      return 0
+    } else if (values.length === 1) {
+      return values[0]
+    }
+
+    values.sort((a, b) => a - b)
+    const medianItem = Math.floor(values.length / 2)
+    return values.length % 2 ? values[medianItem] : (values[medianItem - 1] + values[medianItem]) / 2
+  }
+
   values () {
     return this.data
   }
