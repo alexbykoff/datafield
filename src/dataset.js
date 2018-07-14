@@ -54,25 +54,25 @@ class DataSet {
   }
 
   gt (value) {
-    if (!this.selector) return this
+    if (!this.selector || value === undefined) return this
     const data = this.data.filter(el => findProp(el, this.selector) > value)
     return new DataSet(data)
   }
 
   lt (value) {
-    if (!this.selector) return this
+    if (!this.selector || value === undefined) return this
     const data = this.data.filter(el => findProp(el, this.selector) < value)
     return new DataSet(data)
   }
 
   gte (value) {
-    if (!this.selector) return this
+    if (!this.selector || value === undefined) return this
     const data = this.data.filter(el => findProp(el, this.selector) >= value)
     return new DataSet(data)
   }
 
   lte (value) {
-    if (!this.selector) return this
+    if (!this.selector || value === undefined) return this
     const data = this.data.filter(el => findProp(el, this.selector) <= value)
     return new DataSet(data)
   }
