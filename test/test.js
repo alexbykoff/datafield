@@ -97,8 +97,11 @@ describe('General', function () {
       assert(dataSet.takeRandom())
     })
 
-    it('should return a new DataSet with random number of elements (at least 1)', function () {
-      assert(dataSet.takeRandom())
+    it('should return a new DataSet with random number of elements (at most 100)', function () {
+      let attempts = 100
+      while (attempts--) {
+        assert.isAtMost(dataSet.takeRandom(Math.floor(Math.random()*1000)).length(), 100)
+      }
     })
 
   })

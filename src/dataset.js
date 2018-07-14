@@ -30,6 +30,8 @@ class DataSet {
   }
 
   takeRandom (number = 1) {
+    if (typeof  number !== 'number') number = parseInt(String(number))
+    number = Math.floor(number)
     if (number > this.data.length) number = this.data.length
     const selected = randomTakes(this.data.length, number)
     const data = this.data.filter((el, i) => selected.includes(i))
