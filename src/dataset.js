@@ -1,9 +1,9 @@
 const sleeve = require('sleeve')
 
 class DataSet {
-  constructor (array, caret = 0) {
+  constructor (array = []) {
     this.data = array
-    this.caret = caret
+    this.caret = 0
     this.selector = ''
   }
 
@@ -22,7 +22,9 @@ class DataSet {
   }
 
   take (number = 1) {
-    return new DataSet(this.data.slice(this.caret, this.caret + number), this.caret + number)
+    const data = new DataSet(this.data.slice(this.caret, this.caret + number))
+    this.caret += number
+    return data
   }
 
   length () {
@@ -78,7 +80,8 @@ class DataSet {
   }
 
   asc (prop, type = 'string') {
-    if (this.data[this.caret] && findProp(this.data[this.caret], prop)) {
+    const foundProp = findProp(this.data[0], prop)
+    if (prop && this.data.length) {
       let data = []
       switch (type) {
         case 'num':
@@ -96,7 +99,8 @@ class DataSet {
   }
 
   desc (prop, type = 'string') {
-    if (this.data[this.caret] && findProp(this.data[this.caret], prop)) {
+    const foundProp = findProp(this.data[0], prop)
+    if (prop && this.data.length) {
       let data = []
       switch (type) {
         case 'num':

@@ -35,6 +35,11 @@ describe('General', function () {
       assert.equal(data.length(), 98)
     })
 
+    it('should find values for array', function () {
+      const data = dataSet.has('friends')
+      assert.equal(data.length(), 100)
+    })
+
     it('should find nested prop', function () {
       const data = dataSet.exists('name.first')
       assert.equal(data.length(), 99)
@@ -97,8 +102,12 @@ describe('General', function () {
       assert(dataSet.takeRandom())
     })
 
-    it('should return a new DataSet with random number of elements (at least 1)', function () {
-      assert(dataSet.takeRandom())
+    it('should return a new DataSet with 100 elements', function () {
+      assert.equal(dataSet.takeRandom(100).length(), 100)
+    })
+
+    it('should return a new DataSet with 100 elements', function () {
+      assert.equal(dataSet.takeRandom(Math.floor(Math.random() * 200) + 100).length(), 100)
     })
 
   })
@@ -169,6 +178,37 @@ describe('Comparison', function () {
     })
     it('should return unchanged dataset if no value is present', function () {
       assert.equal(dataSet.select('age').lte().length(), 100)
+    })
+  })
+
+  describe('Sorting', function () {
+
+    it('should sort unchanged dataset when empty asc()', function () {
+      assert.equal(dataSet.asc().length(), 100)
+    })
+
+    it('should sort unchanged dataset when empty desc()', function () {
+      assert.equal(dataSet.desc().length(), 100)
+    })
+
+    it('should sort data alphabetically', function () {
+      const name = dataSet.asc('name.last').values()[0].name.last
+      assert.equal(name, 'Abbott')
+    })
+
+    it('should sort data alphabetically in descending order', function () {
+      const name = dataSet.desc('name.last').values()[0].name.last
+      assert.equal(name, 'Yates')
+    })
+
+    it('should sort data by age in ascending order', function () {
+      const name = dataSet.asc('age', 'num').values()[0].age
+      assert.equal(name, 19)
+    })
+
+    it('should sort data by age in descending order', function () {
+      const name = dataSet.desc('age', 'num').values()[0].age
+      assert.equal(name, 68)
     })
   })
 
