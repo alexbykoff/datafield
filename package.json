@@ -1,11 +1,12 @@
 {
-  "name": "dataset",
+  "name": "datafield",
   "version": "0.1.0",
-  "description": "",
-  "main": "dataset.js",
+  "description": "Sort, select, filter and perform maths on your arrays of data",
+  "main": "datafield.js",
   "scripts": {
     "test": "mocha",
-    "testcov": "istanbul cover node_modules/mocha/bin/_mocha && codecov"
+    "testcov": "istanbul cover node_modules/mocha/bin/_mocha && codecov",
+    "build": "webpack --config webpack.config.js"
   },
   "author": "",
   "license": "MIT",
@@ -13,7 +14,9 @@
     "chai": "^4.1.2",
     "codecov": "^3.0.4",
     "istanbul": "^0.4.5",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "webpack": "^4.16.1",
+    "webpack-cli": "^3.0.8"
   },
   "dependencies": {
     "sleeve": "^0.2.1"
