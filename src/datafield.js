@@ -1,6 +1,6 @@
-const {findProp, randomTakes} = require('./utils')
+import {findProp, randomTakes} from './utils'
 
-class DataField {
+export default class DataField {
   constructor (array = []) {
     this.data = array
     this.caret = 0
@@ -174,6 +174,3 @@ class DataField {
     return this.data
   }
 }
-
-
-module.exports = DataField

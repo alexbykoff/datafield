@@ -1,9 +1,9 @@
-function findProp (el, prop) {
+export function findProp (el, prop) {
   if (el.hasOwnProperty(prop)) return el[prop]
   return traverseKeys(el, prop)
 }
 
-function randomTakes (len, num, collection = []) {
+export function randomTakes (len, num, collection = []) {
   const index = Math.floor(Math.random() * len)
   if (!collection.includes(index)) collection.push(index)
   return collection.length === num ? collection : randomTakes(len, num, collection)
@@ -25,5 +25,3 @@ function traverseKeys (obj, path, fallback) {
 
   return o
 }
-
-module.exports = {findProp, randomTakes}
