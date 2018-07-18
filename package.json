@@ -24,8 +24,5 @@
     "mocha": "^5.2.0",
     "webpack": "4.16.1",
     "webpack-cli": "3.0.8"
-  },
-  "dependencies": {
-    "sleeve": "^0.2.1"
   }
 }

@@ -1,4 +1,4 @@
-const sleeve = require('sleeve')
+const {findProp, randomTakes} = require('./utils')
 
 class DataField {
   constructor (array = []) {
@@ -173,15 +173,5 @@ class DataField {
   }
 }
 
-function findProp (el, prop) {
-  if (el.hasOwnProperty(prop)) return el[prop]
-  return sleeve(el, prop)
-}
-
-function randomTakes (len, num, collection = []) {
-  const index = Math.floor(Math.random() * len)
-  if (!collection.includes(index)) collection.push(index)
-  return collection.length === num ? collection : randomTakes(len, num, collection)
-}
 
 module.exports = DataField
