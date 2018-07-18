@@ -8,6 +8,10 @@
     "testcov": "istanbul cover node_modules/mocha/bin/_mocha && codecov",
     "build": "webpack --config webpack.config.js"
   },
+  "pre-push": [
+    "test",
+    "build"
+  ],
   "author": "Alexey Bykov",
   "license": "MIT",
   "devDependencies": {
@@ -15,6 +19,7 @@
     "codecov": "^3.0.4",
     "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
+    "pre-push": "^0.1.1",
     "webpack": "4.16.1",
     "webpack-cli": "3.0.8"
   },
