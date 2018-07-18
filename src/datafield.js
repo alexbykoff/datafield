@@ -1,4 +1,4 @@
-import {findProp, randomTakes} from './utils'
+import { findProp, randomTakes } from './utils'
 
 export default class DataField {
   constructor (array = []) {
@@ -14,10 +14,9 @@ export default class DataField {
 
   has (prop) {
     const data = this.data.filter(el => {
-        const value = findProp(el, prop)
-        return Array.isArray(value) ? value.length : value
-      }
-    )
+      const value = findProp(el, prop)
+      return Array.isArray(value) ? value.length : value
+    })
     return new DataField(data)
   }
 
@@ -32,7 +31,7 @@ export default class DataField {
   }
 
   takeRandom (number = 1) {
-    if (typeof  number !== 'number') number = parseInt(String(number))
+    if (typeof number !== 'number') number = parseInt(String(number))
     number = Math.floor(number)
     if (number > this.data.length) number = this.data.length
     const selected = randomTakes(this.data.length, number)
@@ -126,7 +125,8 @@ export default class DataField {
   }
 
   avg (prop, strict = true) {
-    let sum = 0, count = 0
+    let sum = 0
+    let count = 0
     this.data.forEach(el => {
       const value = findProp(el, prop)
       if (strict) {

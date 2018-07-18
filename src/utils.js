@@ -9,7 +9,6 @@ export function randomTakes (len, num, collection = []) {
   return collection.length === num ? collection : randomTakes(len, num, collection)
 }
 
-
 function traverseKeys (obj, path, fallback) {
   if (!obj || typeof obj !== 'object') return typeof fallback === 'function' ? fallback() : fallback
   if (!path) return obj
