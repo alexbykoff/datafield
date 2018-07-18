@@ -1,38 +1,38 @@
 {
-  "name": "datafield",
-  "version": "0.1.0",
-  "description": "Sort, select, filter and perform maths on your arrays of data",
-  "main": "./dist/index.js",
-  "module": "./src/datafield.js",
-  "scripts": {
-    "test": "npm run build && mocha --reporter istanbul.reporter.js dist/tests.bundle.js && npm run cov && codecov",
-    "cov": "istanbul check-coverage --statements 90 --branches 85 --functions 100 --lines 90",
-    "build": "npm run lint && npm run clean && rollup --config",
-    "clean": "rimraf dist",
-    "lint": "standard --fix src/*.js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run test"
+    "name": "datafield",
+    "version": "0.1.0",
+    "description": "Sort, select, filter and perform maths on your arrays of data",
+    "main": "./dist/index.js",
+    "module": "./src/datafield.js",
+    "scripts": {
+        "test": "npm run build && mocha --reporter istanbul.reporter.js dist/tests.bundle.js && npm run cov && codecov",
+        "cov": "istanbul check-coverage --statements 90 --branches 85 --functions 100 --lines 90",
+        "build": "npm run lint && npm run clean && rollup --config",
+        "clean": "rimraf dist",
+        "lint": "standard --fix src/*.js"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run test"
+        }
+    },
+    "author": "Alexey Bykov",
+    "license": "MIT",
+    "devDependencies": {
+        "chai": "4.1.2",
+        "codecov": "3.0.4",
+        "husky": "1.0.0-rc.13",
+        "istanbul": "0.4.5",
+        "jsdom-global": "3.0.2",
+        "mocha": "5.2.0",
+        "rimraf": "2.6.2",
+        "rollup": "0.63.2",
+        "rollup-plugin-buble": "0.19.2",
+        "rollup-plugin-commonjs": "9.1.3",
+        "rollup-plugin-istanbul": "2.0.1",
+        "rollup-plugin-multi-entry": "2.0.2",
+        "rollup-plugin-node-resolve": "3.3.0",
+        "rollup-plugin-terser": "1.0.1",
+        "standard": "11.0.1"
     }
-  },
-  "author": "Alexey Bykov",
-  "license": "MIT",
-  "devDependencies": {
-    "chai": "4.1.2",
-    "codecov": "3.0.4",
-    "husky": "1.0.0-rc.13",
-    "istanbul": "0.4.5",
-    "jsdom-global": "3.0.2",
-    "mocha": "5.2.0",
-    "rimraf": "2.6.2",
-    "rollup": "0.63.2",
-    "rollup-plugin-buble": "0.19.2",
-    "rollup-plugin-commonjs": "9.1.3",
-    "rollup-plugin-istanbul": "2.0.1",
-    "rollup-plugin-multi-entry": "2.0.2",
-    "rollup-plugin-node-resolve": "3.3.0",
-    "rollup-plugin-terser": "1.0.1",
-    "standard": "11.0.1"
-  }
 }
