@@ -1,8 +1,8 @@
 const chai = require('chai')
 const assert = chai.assert
 const should = chai.should()
-const DataField = require('../src/datafield')
-const data = require('./data')
+import DataField from '../src/datafield'
+import data from'./data'
 
 const dataField = new DataField(data)
 

@@ -1,4 +1,4 @@
-module.exports = [
+const data = [
   {
     "_id": "5b420ae94fe6464ff91f5de8",
     "index": 0,
@@ -3599,3 +3599,4 @@ module.exports = [
     ]
   }
 ]
+export default data

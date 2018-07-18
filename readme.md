@@ -1,4 +1,4 @@
-### DataField
+### Index
 Sort, select, filter and perform maths on your arrays of data
 
 [![codecov](https://codecov.io/gh/tomkallen/dataset/branch/master/graph/badge.svg)](https://codecov.io/gh/tomkallen/dataset)
