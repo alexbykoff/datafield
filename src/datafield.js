@@ -1,15 +1,15 @@
-const sleeve = require('sleeve')
+const {findProp, randomTakes} = require('./utils')
 
-class DataSet {
-  constructor (array, caret = 0) {
+class DataField {
+  constructor (array = []) {
     this.data = array
-    this.caret = caret
+    this.caret = 0
     this.selector = ''
   }
 
   exists (prop) {
     const data = this.data.filter(el => findProp(el, prop) !== undefined)
-    return new DataSet(data)
+    return new DataField(data)
   }
 
   has (prop) {
@@ -18,11 +18,13 @@ class DataSet {
         return Array.isArray(value) ? value.length : value
       }
     )
-    return new DataSet(data)
+    return new DataField(data)
   }
 
   take (number = 1) {
-    return new DataSet(this.data.slice(this.caret, this.caret + number), this.caret + number)
+    const data = new DataField(this.data.slice(this.caret, this.caret + number))
+    this.caret += number
+    return data
   }
 
   length () {
@@ -35,7 +37,7 @@ class DataSet {
     if (number > this.data.length) number = this.data.length
     const selected = randomTakes(this.data.length, number)
     const data = this.data.filter((el, i) => selected.includes(i))
-    return new DataSet(data)
+    return new DataField(data)
   }
 
   select (selector) {
@@ -46,41 +48,41 @@ class DataSet {
   eq (value) {
     if (!this.selector) return this
     const data = this.data.filter(el => findProp(el, this.selector) === value)
-    return new DataSet(data)
+    return new DataField(data)
   }
 
   not (value) {
     if (!this.selector) return this
     const data = this.data.filter(el => findProp(el, this.selector) !== value)
-    return new DataSet(data)
+    return new DataField(data)
   }
 
   gt (value) {
     if (!this.selector || value === undefined) return this
     const data = this.data.filter(el => findProp(el, this.selector) > value)
-    return new DataSet(data)
+    return new DataField(data)
   }
 
   lt (value) {
     if (!this.selector || value === undefined) return this
     const data = this.data.filter(el => findProp(el, this.selector) < value)
-    return new DataSet(data)
+    return new DataField(data)
   }
 
   gte (value) {
     if (!this.selector || value === undefined) return this
     const data = this.data.filter(el => findProp(el, this.selector) >= value)
-    return new DataSet(data)
+    return new DataField(data)
   }
 
   lte (value) {
     if (!this.selector || value === undefined) return this
     const data = this.data.filter(el => findProp(el, this.selector) <= value)
-    return new DataSet(data)
+    return new DataField(data)
   }
 
   asc (prop, type = 'string') {
-    if (this.data[this.caret] && findProp(this.data[this.caret], prop)) {
+    if (prop && this.data.length) {
       let data = []
       switch (type) {
         case 'num':
@@ -92,13 +94,13 @@ class DataSet {
         default:
           data = this.data.slice().sort((a, b) => findProp(a, prop).localeCompare(findProp(b, prop)))
       }
-      return new DataSet(data)
+      return new DataField(data)
     }
     return this
   }
 
   desc (prop, type = 'string') {
-    if (this.data[this.caret] && findProp(this.data[this.caret], prop)) {
+    if (prop && this.data.length) {
       let data = []
       switch (type) {
         case 'num':
@@ -110,7 +112,7 @@ class DataSet {
         default:
           data = this.data.slice().sort((a, b) => findProp(b, prop).localeCompare(findProp(a, prop)))
       }
-      return new DataSet(data)
+      return new DataField(data)
     }
     return this
   }
@@ -173,15 +175,5 @@ class DataSet {
   }
 }
 
-function findProp (el, prop) {
-  if (el.hasOwnProperty(prop)) return el[prop]
-  return sleeve(el, prop)
-}
 
-function randomTakes (len, num, collection = []) {
-  const index = Math.floor(Math.random() * len)
-  if (!collection.includes(index)) collection.push(index)
-  return collection.length === num ? collection : randomTakes(len, num, collection)
-}
-
-module.exports = DataSet
+module.exports = DataField
