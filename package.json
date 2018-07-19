@@ -6,7 +6,7 @@
     "module": "./src/datafield.js",
     "scripts": {
         "test": "npm run build && mocha --reporter istanbul.reporter.js dist/tests.bundle.js && npm run cov && codecov",
-        "cov": "istanbul check-coverage --statements 90 --branches 80 --functions 100 --lines 90",
+        "cov": "istanbul check-coverage --statements 80 --branches 70 --functions 80 --lines 80",
         "build": "npm run lint && npm run clean && rollup --config",
         "clean": "rimraf dist",
         "lint": "standard src/*.js --fix --verbose | snazzy"

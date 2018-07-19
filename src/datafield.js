@@ -55,37 +55,73 @@ export default class DataField {
 
   eq (value) {
     if (!this.selector) return this
-    const data = this.data.filter(el => findProp(el, this.selector) === value)
+    let data
+    if (['d', 'date'].includes(this.fieldType)) {
+      value = new Date(value)
+      data = this.data.filter(el => findProp(el, this.selector) === value)
+      return new DataField(data)
+    }
+    data = this.data.filter(el => findProp(el, this.selector) === value)
     return new DataField(data)
   }
 
   not (value) {
     if (!this.selector) return this
-    const data = this.data.filter(el => findProp(el, this.selector) !== value)
+    let data
+    if (['d', 'date'].includes(this.fieldType)) {
+      value = new Date(value)
+      data = this.data.filter(el => findProp(el, this.selector) !== value)
+      return new DataField(data)
+    }
+    data = this.data.filter(el => findProp(el, this.selector) !== value)
     return new DataField(data)
   }
 
   gt (value) {
     if (!this.selector || value === undefined) return this
-    const data = this.data.filter(el => findProp(el, this.selector) > value)
+    let data
+    if (['d', 'date'].includes(this.fieldType)) {
+      value = new Date(value)
+      data = this.data.filter(el => findProp(el, this.selector) > value)
+      return new DataField(data)
+    }
+    data = this.data.filter(el => findProp(el, this.selector) > value)
     return new DataField(data)
   }
 
   lt (value) {
     if (!this.selector || value === undefined) return this
-    const data = this.data.filter(el => findProp(el, this.selector) < value)
+    let data
+    if (['d', 'date'].includes(this.fieldType)) {
+      value = new Date(value)
+      data = this.data.filter(el => findProp(el, this.selector) < value)
+      return new DataField(data)
+    }
+    data = this.data.filter(el => findProp(el, this.selector) < value)
     return new DataField(data)
   }
 
   gte (value) {
     if (!this.selector || value === undefined) return this
-    const data = this.data.filter(el => findProp(el, this.selector) >= value)
+    let data
+    if (['d', 'date'].includes(this.fieldType)) {
+      value = new Date(value)
+      data = this.data.filter(el => findProp(el, this.selector) >= value)
+      return new DataField(data)
+    }
+    data = this.data.filter(el => findProp(el, this.selector) >= value)
     return new DataField(data)
   }
 
   lte (value) {
     if (!this.selector || value === undefined) return this
-    const data = this.data.filter(el => findProp(el, this.selector) <= value)
+    let data
+    if (['d', 'date'].includes(this.fieldType)) {
+      value = new Date(value)
+      data = this.data.filter(el => findProp(el, this.selector) <= value)
+      return new DataField(data)
+    }
+    data = this.data.filter(el => findProp(el, this.selector) <= value)
     return new DataField(data)
   }
 
@@ -115,6 +151,10 @@ export default class DataField {
         case 's':
           data = this.data.slice().sort((a, b) => String(findProp(a, prop)).localeCompare(String(findProp(b, prop))))
           break
+        case 'date':
+        case 'd':
+          data = this.data.slice().sort((a, b) => Number(new Date(findProp(a, prop))) - Number(new Date(findProp(b, prop))))
+          break
         default:
           return this
       }
@@ -138,6 +178,10 @@ export default class DataField {
         case 'str':
         case 's':
           data = this.data.slice().sort((a, b) => String(findProp(b, prop)).localeCompare(String(findProp(a, prop))))
+          break
+        case 'date':
+        case 'd':
+          data = this.data.slice().sort((a, b) => Number(new Date(findProp(b, prop))) - Number(new Date(findProp(a, prop))))
           break
         default:
           return this
