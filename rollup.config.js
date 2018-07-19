@@ -4,10 +4,9 @@ import buble from 'rollup-plugin-buble'
 import multiEntry from 'rollup-plugin-multi-entry'
 import istanbul from 'rollup-plugin-istanbul'
 import pkg from './package.json'
-import { terser } from "rollup-plugin-terser";
+import { terser } from 'rollup-plugin-terser'
 
 const {main} = pkg
-
 
 export default [{
   input: 'src/datafield.js',

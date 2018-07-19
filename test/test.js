@@ -2,7 +2,7 @@ const chai = require('chai')
 const assert = chai.assert
 const should = chai.should()
 import DataField from '../src/datafield'
-import data from'./data'
+import data from './data'
 
 const dataField = new DataField(data)
 
@@ -109,9 +109,7 @@ describe('General', function () {
     it('should return a new DataField with 100 elements', function () {
       assert.equal(dataField.takeRandom(Math.floor(Math.random() * 200) + 100).length(), 100)
     })
-
   })
-
 })
 
 describe('Comparison', function () {
@@ -182,7 +180,6 @@ describe('Comparison', function () {
   })
 
   describe('Sorting', function () {
-
     it('should sort unchanged dataset when empty asc()', function () {
       assert.equal(dataField.asc().length(), 100)
     })
@@ -211,5 +208,4 @@ describe('Comparison', function () {
       assert.equal(name, 68)
     })
   })
-
 })
