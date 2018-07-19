@@ -137,7 +137,7 @@ export default class DataField {
         case 'string':
         case 'str':
         case 's':
-          data = this.data.slice().sort((a, b) => findProp(b, prop).localeCompare(findProp(a, prop)))
+          data = this.data.slice().sort((a, b) => String(findProp(b, prop)).localeCompare(String(findProp(a, prop))))
           break
         default:
           return this
