@@ -111,11 +111,11 @@ describe('General', function () {
     })
 
     it('should try to parse string', function () {
-      assert.equal(dataField.takeRandom("7").length(), 7)
+      assert.equal(dataField.takeRandom('7').length(), 7)
     })
 
     it('should try to parse string', function () {
-      assert.equal(dataField.takeRandom("not a number").length(), 1)
+      assert.equal(dataField.takeRandom('not a number').length(), 1)
     })
   })
 })
@@ -215,6 +215,17 @@ describe('Comparison', function () {
       const name = dataField.where('age').desc().values()[0].age
       assert.equal(name, 68)
     })
+
+    it('should sort data using sort() method', function () {
+      const company = dataField.sort({by: 'company', order: 'desc', type: 'string'}).values()[0].company
+      assert.equal(company, 'ZOLAVO')
+    })
+
+    it('should sort data using sort() method, defaulting to "asc" order and "string" type', function () {
+      const company = dataField.sort({by: 'company'}).values()[0].company
+      assert.equal(company, 'ANIVET')
+    })
+
   })
 })
 

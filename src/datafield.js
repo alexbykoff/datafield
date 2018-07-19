@@ -6,6 +6,7 @@ export default class DataField {
     this.caret = 0
     this.selector = ''
     this.fieldType = ''
+    this.types = ['number', 'num', 'n', 'date', 'd', 'string', 'str', 's']
   }
 
   exists (prop) {
@@ -48,8 +49,7 @@ export default class DataField {
   }
 
   type (type = 'string') {
-    const types = ['number', 'num', 'n', 'date', 'd', 'string', 'str', 's']
-    this.fieldType = types.includes(type) ? type : 'string'
+    this.fieldType = this.types.includes(type) ? type : 'string'
     return this
   }
 
@@ -89,6 +89,16 @@ export default class DataField {
     return new DataField(data)
   }
 
+  sort ({by, order = 'asc', type} = {}) {
+    const prop = findProp(this.data[0], by)
+    if (!by || !prop) return this
+    if (order !== 'desc') order = 'asc'
+    if (!type) type = typeof prop
+    this.selector = by
+    this.fieldType = type
+    return order === 'asc' ? this.asc() : this.desc()
+  }
+
   asc () {
     if (this.selector && this.data.length) {
       let data = []
@@ -103,7 +113,7 @@ export default class DataField {
         case 'string':
         case 'str':
         case 's':
-          data = this.data.slice().sort((a, b) => findProp(a, prop).localeCompare(findProp(b, prop)))
+          data = this.data.slice().sort((a, b) => String(findProp(a, prop)).localeCompare(String(findProp(b, prop))))
           break
         default:
           return this
