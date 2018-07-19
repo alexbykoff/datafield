@@ -5,6 +5,7 @@ export default class DataField {
     this.data = array
     this.caret = 0
     this.selector = ''
+    this.fieldType = ''
   }
 
   exists (prop) {
@@ -27,11 +28,13 @@ export default class DataField {
   }
 
   length () {
+    this.reset()
     return this.data.length
   }
 
   takeRandom (number = 1) {
     if (typeof number !== 'number') number = parseInt(String(number))
+    if (isNaN(number)) number = 1
     number = Math.floor(number)
     if (number > this.data.length) number = this.data.length
     const selected = randomTakes(this.data.length, number)
@@ -39,8 +42,14 @@ export default class DataField {
     return new DataField(data)
   }
 
-  select (selector) {
+  where (selector) {
     this.selector = selector
+    return this
+  }
+
+  type (type = 'string') {
+    const types = ['number', 'num', 'n', 'date', 'd', 'string', 'str', 's']
+    this.fieldType = types.includes(type) ? type : 'string'
     return this
   }
 
@@ -80,36 +89,48 @@ export default class DataField {
     return new DataField(data)
   }
 
-  asc (prop, type = 'string') {
-    if (prop && this.data.length) {
+  asc () {
+    if (this.selector && this.data.length) {
       let data = []
+      const type = this.fieldType || typeof findProp(this.data[0], this.selector)
+      const prop = this.selector
       switch (type) {
+        case 'n':
         case 'num':
         case 'number':
           data = this.data.slice().sort((a, b) => findProp(a, prop) - findProp(b, prop))
           break
         case 'string':
         case 'str':
-        default:
+        case 's':
           data = this.data.slice().sort((a, b) => findProp(a, prop).localeCompare(findProp(b, prop)))
+          break
+        default:
+          return this
       }
       return new DataField(data)
     }
     return this
   }
 
-  desc (prop, type = 'string') {
-    if (prop && this.data.length) {
+  desc () {
+    if (this.selector && this.data.length) {
       let data = []
+      const type = this.fieldType || typeof findProp(this.data[0], this.selector)
+      const prop = this.selector
       switch (type) {
+        case 'n':
         case 'num':
         case 'number':
           data = this.data.slice().sort((a, b) => findProp(b, prop) - findProp(a, prop))
           break
         case 'string':
         case 'str':
-        default:
+        case 's':
           data = this.data.slice().sort((a, b) => findProp(b, prop).localeCompare(findProp(a, prop)))
+          break
+        default:
+          return this
       }
       return new DataField(data)
     }
@@ -117,6 +138,7 @@ export default class DataField {
   }
 
   sum (prop, strict = true) {
+    this.reset()
     return this.data.reduce((sum, el) => {
       const value = findProp(el, prop)
       if (strict) return typeof value === 'number' ? sum + value : sum
@@ -125,6 +147,7 @@ export default class DataField {
   }
 
   avg (prop, strict = true) {
+    this.reset()
     let sum = 0
     let count = 0
     this.data.forEach(el => {
@@ -145,6 +168,7 @@ export default class DataField {
   }
 
   median (prop, strict = true) {
+    this.reset()
     const values = []
     this.data.forEach(el => {
       const value = findProp(el, prop)
@@ -171,6 +195,12 @@ export default class DataField {
   }
 
   values () {
+    this.reset()
     return this.data
+  }
+
+  reset () {
+    this.fieldType = ''
+    this.selector = ''
   }
 }

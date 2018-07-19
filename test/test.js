@@ -61,13 +61,13 @@ describe('General', function () {
     })
 
     it('should sum age from selected sources', function () {
-      const data = dataField.select('age').gt(45)
+      const data = dataField.where('age').gt(45)
       assert.equal(data.sum('age'), 2608)
     })
 
     it('should sum ages from 2 selections without WITH type coercion', function () {
-      const dataHigh = dataField.select('age').gt(45)
-      const dataLow = dataField.select('age').lte(45)
+      const dataHigh = dataField.where('age').gt(45)
+      const dataLow = dataField.where('age').lte(45)
       const sum = dataHigh.sum('age', false) + dataLow.sum('age', false)
       assert.equal(sum, 4317)
     })
@@ -109,73 +109,81 @@ describe('General', function () {
     it('should return a new DataField with 100 elements', function () {
       assert.equal(dataField.takeRandom(Math.floor(Math.random() * 200) + 100).length(), 100)
     })
+
+    it('should try to parse string', function () {
+      assert.equal(dataField.takeRandom("7").length(), 7)
+    })
+
+    it('should try to parse string', function () {
+      assert.equal(dataField.takeRandom("not a number").length(), 1)
+    })
   })
 })
 
 describe('Comparison', function () {
   describe('Equality', function () {
     it('should filter entries based on equality', function () {
-      assert.equal(dataField.select('age').eq(48).length(), 2)
+      assert.equal(dataField.where('age').eq(48).length(), 2)
     })
     it('should return unchanged dataset if no selector is present', function () {
-      assert.equal(dataField.select().eq(48).length(), 100)
+      assert.equal(dataField.where().eq(48).length(), 100)
     })
   })
 
   describe('Inequality', function () {
     it('should filter entries based on inequality', function () {
-      assert.equal(dataField.select('age').not(48).length(), 98)
+      assert.equal(dataField.where('age').not(48).length(), 98)
     })
     it('should return unchanged dataset if no selector is present', function () {
-      assert.equal(dataField.select().not().length(), 100)
+      assert.equal(dataField.where().not().length(), 100)
     })
   })
 
   describe('Greater', function () {
     it('should filter entries based on equality', function () {
-      assert.equal(dataField.select('age').gt(48).length(), 42)
+      assert.equal(dataField.where('age').gt(48).length(), 42)
     })
     it('should return unchanged dataset if no selector is present', function () {
-      assert.equal(dataField.select().gt(48).length(), 100)
+      assert.equal(dataField.where().gt(48).length(), 100)
     })
     it('should return unchanged dataset if no value is present', function () {
-      assert.equal(dataField.select('age').gt().length(), 100)
+      assert.equal(dataField.where('age').gt().length(), 100)
     })
   })
 
   describe('Greater-Equal', function () {
     it('should filter entries based on equality', function () {
-      assert.equal(dataField.select('age').gte(48).length(), 44)
+      assert.equal(dataField.where('age').gte(48).length(), 44)
     })
     it('should return unchanged dataset if no selector is present', function () {
-      assert.equal(dataField.select().gte(48).length(), 100)
+      assert.equal(dataField.where().gte(48).length(), 100)
     })
     it('should return unchanged dataset if no value is present', function () {
-      assert.equal(dataField.select('age').gte().length(), 100)
+      assert.equal(dataField.where('age').gte().length(), 100)
     })
   })
 
   describe('Less', function () {
     it('should filter entries based on equality', function () {
-      assert.equal(dataField.select('age').lt(48).length(), 56)
+      assert.equal(dataField.where('age').lt(48).length(), 56)
     })
     it('should return unchanged dataset if no selector is present', function () {
-      assert.equal(dataField.select().lt(48).length(), 100)
+      assert.equal(dataField.where().lt(48).length(), 100)
     })
     it('should return unchanged dataset if no value is present', function () {
-      assert.equal(dataField.select('age').lt().length(), 100)
+      assert.equal(dataField.where('age').lt().length(), 100)
     })
   })
 
   describe('Less-Equal', function () {
     it('should filter entries based on equality', function () {
-      assert.equal(dataField.select('age').lte(48).length(), 58)
+      assert.equal(dataField.where('age').lte(48).length(), 58)
     })
     it('should return unchanged dataset if no selector is present', function () {
-      assert.equal(dataField.select().lte(48).length(), 100)
+      assert.equal(dataField.where().lte(48).length(), 100)
     })
     it('should return unchanged dataset if no value is present', function () {
-      assert.equal(dataField.select('age').lte().length(), 100)
+      assert.equal(dataField.where('age').lte().length(), 100)
     })
   })
 
@@ -189,23 +197,39 @@ describe('Comparison', function () {
     })
 
     it('should sort data alphabetically', function () {
-      const name = dataField.asc('name.last').values()[0].name.last
+      const name = dataField.where('name.last').asc().values()[0].name.last
       assert.equal(name, 'Abbott')
     })
 
     it('should sort data alphabetically in descending order', function () {
-      const name = dataField.desc('name.last').values()[0].name.last
+      const name = dataField.where('name.last').desc().values()[0].name.last
       assert.equal(name, 'Yates')
     })
 
     it('should sort data by age in ascending order', function () {
-      const name = dataField.asc('age', 'num').values()[0].age
+      const name = dataField.where('age').asc().values()[0].age
       assert.equal(name, 19)
     })
 
     it('should sort data by age in descending order', function () {
-      const name = dataField.desc('age', 'num').values()[0].age
+      const name = dataField.where('age').desc().values()[0].age
       assert.equal(name, 68)
+    })
+  })
+})
+
+describe('Utils', function () {
+  describe('Ensure types method', function () {
+    it('should properly assign type', function () {
+      assert.equal(dataField.type('number').fieldType, 'number')
+    })
+
+    it('should properly default to "string" type', function () {
+      assert.equal(dataField.type('whatever').fieldType, 'string')
+    })
+
+    it('should properly default to "string" type if parameter is omitted', function () {
+      assert.equal(dataField.type().fieldType, 'string')
     })
   })
 })
