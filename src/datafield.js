@@ -5,8 +5,6 @@ export default class DataField {
     this.data = array
     this.caret = 0
     this.selector = ''
-    this.fieldType = ''
-    this.types = ['number', 'num', 'n', 'date', 'd', 'string', 'str', 's']
   }
 
   exists (prop) {
@@ -45,11 +43,6 @@ export default class DataField {
 
   where (selector) {
     this.selector = selector
-    return this
-  }
-
-  type (type = 'string') {
-    this.fieldType = this.types.includes(type) ? type : 'string'
     return this
   }
 
@@ -143,14 +136,13 @@ export default class DataField {
     if (order !== 'desc') order = 'asc'
     if (!type) type = typeof prop
     this.selector = by
-    this.fieldType = type
-    return order === 'asc' ? this.asc() : this.desc()
+    return order === 'asc' ? this.asc(type) : this.desc(type)
   }
 
-  asc () {
+  asc (type) {
     if (this.selector && this.data.length) {
       let data = []
-      const type = typeof findProp(this.data[0], this.selector)
+      type = type || typeof findProp(this.data[0], this.selector)
       const prop = this.selector
       switch (type) {
         case 'n':
@@ -175,10 +167,10 @@ export default class DataField {
     return this
   }
 
-  desc () {
+  desc (type) {
     if (this.selector && this.data.length) {
       let data = []
-      const type = this.fieldType || typeof findProp(this.data[0], this.selector)
+      type = type || typeof findProp(this.data[0], this.selector)
       const prop = this.selector
       switch (type) {
         case 'n':
