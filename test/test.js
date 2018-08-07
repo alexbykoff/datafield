@@ -233,7 +233,7 @@ describe('Comparison', function () {
 describe('Range', function () {
   describe('Different comparison types', function () {
     it('should throw an error as types are different', function () {
-      expect( ()=> dataField.where('index').range(1, "ff")).to.throw("bad arguments")
+      expect(() => dataField.where('index').range(1, 'ff')).to.throw('bad arguments')
     })
   })
 
@@ -243,8 +243,19 @@ describe('Range', function () {
     })
   })
 
-})
+  describe('Successful filtering by date', function () {
+    it('should throw an error as types are different', function () {
+      assert.equal(dataField.where('registered').range(new Date('may 3, 1980'), new Date('jan 1, 2017')).length(), 65)
+    })
+  })
 
+  describe('Successful filtering by alphabet', function () {
+    it('should throw an error as types are different', function () {
+      assert.equal(dataField.where('name.first').range("A", "C").length(), 16)
+    })
+  })
+
+})
 
 describe('Utils', function () {
   describe('Ensure types method', function () {
