@@ -256,25 +256,30 @@ describe('Comparison', function () {
 describe('Range', function () {
   describe('Different comparison types', function () {
     it('should throw an error as types are different', function () {
-      expect(() => dataField.where('index').range(1, 'ff')).to.throw('bad arguments')
+      expect(() => dataField.where('index').range(1, 'str')).to.throw('bad arguments')
+      expect(() => dataField.where('index').range('str')).to.throw('bad arguments')
+      expect(() => dataField.where('index').range()).to.throw('bad arguments')
     })
   })
 
   describe('Successful filtering by index', function () {
-    it('should throw an error as types are different', function () {
+    it('should filter 50 entries by index', function () {
       assert.equal(dataField.where('index').range(0, 50).length(), 50)
     })
   })
 
   describe('Successful filtering by date', function () {
-    it('should throw an error as types are different', function () {
+    it('should filter 65 entries', function () {
       assert.equal(dataField.where('registered').range(new Date('may 3, 1980'), new Date('jan 1, 2017')).length(), 65)
     })
   })
 
   describe('Successful filtering by alphabet', function () {
-    it('should throw an error as types are different', function () {
+    it('select from A to C', function () {
       assert.equal(dataField.where('name.first').range('A', 'C').length(), 16)
+    })
+    it('select from U to Zz', function () {
+      assert.equal(dataField.where('name.first').range('U', 'Zz').length(), 6)
     })
   })
 })
