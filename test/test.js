@@ -143,7 +143,7 @@ describe('Comparison', function () {
       assert.equal(dataField.where().not().length(), 100)
     })
     it('should remove 1 item with matching date', function () {
-      assert.equal(dataField.where("registered").not(new Date("may 1, 2015")).length(), 99)
+      assert.equal(dataField.where('registered').not(new Date('may 1, 2015')).length(), 99)
     })
   })
 
@@ -246,7 +246,10 @@ describe('Comparison', function () {
       const company = dataField.sort({by: 'company'}).values()[0].company
       assert.equal(company, 'ANIVET')
     })
-
+    it('should sort data by date', function () {
+      const company = dataField.sort({by: 'registered', type: 'date'}).values()[0].company
+      assert.equal(company, 'ISOTRACK')
+    })
   })
 })
 
@@ -272,23 +275,6 @@ describe('Range', function () {
   describe('Successful filtering by alphabet', function () {
     it('should throw an error as types are different', function () {
       assert.equal(dataField.where('name.first').range('A', 'C').length(), 16)
-    })
-  })
-
-})
-
-describe('Utils', function () {
-  describe('Ensure types method', function () {
-    it('should properly assign type', function () {
-      assert.equal(dataField.type('number').fieldType, 'number')
-    })
-
-    it('should properly default to "string" type', function () {
-      assert.equal(dataField.type('whatever').fieldType, 'string')
-    })
-
-    it('should properly default to "string" type if parameter is omitted', function () {
-      assert.equal(dataField.type().fieldType, 'string')
     })
   })
 })
