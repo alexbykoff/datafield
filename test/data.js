@@ -3541,7 +3541,7 @@ const data = [
     'email': 'pauline.merrill@scenty.me',
     'phone': '+1 (989) 574-3364',
     'address': '262 Lincoln Terrace, Kersey, American Samoa, 6732',
-    'registered': 'Wednesday, December 14, 2016 5:40 AM',
+    'registered': 'May 1, 2015',
     'tags': [
       'ullamco',
       'officia',
