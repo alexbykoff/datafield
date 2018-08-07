@@ -5,9 +5,13 @@ const should = chai.should()
 import DataField from '../src/datafield'
 import data from './data'
 
-const dataField = new DataField(data)
+let dataField = new DataField(data)
 
 describe('General', function () {
+  beforeEach(function () {
+    dataField = new DataField(data)
+  })
+
   describe('Data array', function () {
     it('should contain data for 100 entries', function () {
       assert.equal(data.length, 100)
@@ -138,6 +142,9 @@ describe('Comparison', function () {
     it('should return unchanged dataset if no selector is present', function () {
       assert.equal(dataField.where().not().length(), 100)
     })
+    it('should remove 1 item with matching date', function () {
+      assert.equal(dataField.where("registered").not(new Date("may 1, 2015")).length(), 99)
+    })
   })
 
   describe('Greater', function () {
@@ -149,6 +156,10 @@ describe('Comparison', function () {
     })
     it('should return unchanged dataset if no value is present', function () {
       assert.equal(dataField.where('age').gt().length(), 100)
+    })
+
+    it('should filter by date', function () {
+      assert.equal(dataField.where('registered').gt(new Date('may 1, 2015')).length(), 70)
     })
   })
 
@@ -162,6 +173,9 @@ describe('Comparison', function () {
     it('should return unchanged dataset if no value is present', function () {
       assert.equal(dataField.where('age').gte().length(), 100)
     })
+    it('should filter by date', function () {
+      assert.equal(dataField.where('registered').gte(new Date('may 1, 2015')).length(), 71)
+    })
   })
 
   describe('Less', function () {
@@ -174,6 +188,9 @@ describe('Comparison', function () {
     it('should return unchanged dataset if no value is present', function () {
       assert.equal(dataField.where('age').lt().length(), 100)
     })
+    it('should filter by date', function () {
+      assert.equal(dataField.where('registered').lt(new Date('may 1, 2015')).length(), 29)
+    })
   })
 
   describe('Less-Equal', function () {
@@ -185,6 +202,9 @@ describe('Comparison', function () {
     })
     it('should return unchanged dataset if no value is present', function () {
       assert.equal(dataField.where('age').lte().length(), 100)
+    })
+    it('should filter by date', function () {
+      assert.equal(dataField.where('registered').lte(new Date('may 1, 2015')).length(), 30)
     })
   })
 
@@ -251,7 +271,7 @@ describe('Range', function () {
 
   describe('Successful filtering by alphabet', function () {
     it('should throw an error as types are different', function () {
-      assert.equal(dataField.where('name.first').range("A", "C").length(), 16)
+      assert.equal(dataField.where('name.first').range('A', 'C').length(), 16)
     })
   })
 
