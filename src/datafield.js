@@ -1,4 +1,4 @@
-import { findProp, randomTakes } from './utils'
+import { findProp, randomTakes, checkTypes } from './utils'
 
 export default class DataField {
   constructor (array = []) {
@@ -122,6 +122,17 @@ export default class DataField {
       return new DataField(data)
     }
     data = this.data.filter(el => findProp(el, this.selector) <= value)
+    return new DataField(data)
+  }
+
+  range (from, to) {
+    if (!checkTypes(from, to)) throw new Error('bad arguments')
+    if (!this.selector) return this
+    let data
+    data = this.data.filter(el => {
+      const val = findProp(el, this.selector)
+      return val >= from && val < to
+    })
     return new DataField(data)
   }
 

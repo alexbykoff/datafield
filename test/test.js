@@ -1,5 +1,6 @@
 const chai = require('chai')
 const assert = chai.assert
+const expect = chai.expect
 const should = chai.should()
 import DataField from '../src/datafield'
 import data from './data'
@@ -228,6 +229,22 @@ describe('Comparison', function () {
 
   })
 })
+
+describe('Range', function () {
+  describe('Different comparison types', function () {
+    it('should throw an error as types are different', function () {
+      expect( ()=> dataField.where('index').range(1, "ff")).to.throw("bad arguments")
+    })
+  })
+
+  describe('Successful filtering by index', function () {
+    it('should throw an error as types are different', function () {
+      assert.equal(dataField.where('index').range(0, 50).length(), 50)
+    })
+  })
+
+})
+
 
 describe('Utils', function () {
   describe('Ensure types method', function () {

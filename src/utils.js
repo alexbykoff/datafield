@@ -24,3 +24,9 @@ function traverseKeys (obj, path, fallback) {
 
   return o
 }
+
+export function checkTypes (a, b) {
+  if (typeof a !== typeof b) return false
+  if (typeof a === 'object' && a instanceof Date && b instanceof Date) return true
+  return typeof a === 'number' || typeof a === 'string'
+}
