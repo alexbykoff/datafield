@@ -129,6 +129,13 @@ export default class DataField {
     if (!checkTypes(from, to)) throw new Error('bad arguments')
     if (!this.selector) return this
     let data
+    if (from instanceof Date) {
+      data = this.data.filter(el => {
+        const val = findProp(el, this.selector)
+        return new Date(val) >= from && new Date(val) < to
+      })
+      return new DataField(data)
+    }
     data = this.data.filter(el => {
       const val = findProp(el, this.selector)
       return val >= from && val < to
