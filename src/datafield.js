@@ -266,6 +266,7 @@ export default class DataField {
     for (let i = 0; i < this.data.length; i++) {
       const prop = findProp(this.data[i], selector)
       if (prop) {
+        if (Array.isArray(prop)) return 'array'
         return typeof prop
       }
     }
