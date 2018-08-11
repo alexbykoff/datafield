@@ -1,18 +1,20 @@
 import DataField from '../src/datafield'
-import data from './data'
+import * as data from './data.json'
 
-let dataField = new DataField(data)
+const content = data.data
+
+let dataField = new DataField(content)
 
 /* global describe it expect beforeEach */
 
 describe('General', function () {
   beforeEach(function () {
-    dataField = new DataField(data)
+    dataField = new DataField(content)
   })
 
   describe('Data array', function () {
     it('should contain data for 100 entries', function () {
-      expect(data.length).toEqual(100)
+      expect(content.length).toEqual(100)
     })
   })
 

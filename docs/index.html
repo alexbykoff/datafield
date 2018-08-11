@@ -6,6 +6,10 @@
 </head>
 <body>
 <script src="https://rawgit.com/tomkallen/datafield/master/dist/index.js"></script>
-<script src="https://rawgit.com/tomkallen/datafield/master/test/data.js"></script>
+<script>
+  window.data = fetch('https://rawgit.com/tomkallen/datafield/master/test/data.json')
+    .then(r => r.json())
+    .then(r => r.data)
+</script>
 </body>
 </html>
