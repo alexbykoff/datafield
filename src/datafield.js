@@ -131,7 +131,7 @@ export default class DataField {
   }
 
   sort ({by, order = 'asc', type} = {}) {
-    const prop = findProp(this.data[0], by)
+    const prop = this.__findFirstOccurrence(by)
     if (!by || !prop) return this
     if (order !== 'desc') order = 'asc'
     if (!type) type = typeof prop
@@ -142,7 +142,7 @@ export default class DataField {
   asc (type) {
     if (this.selector && this.data.length) {
       let data = []
-      type = type || typeof findProp(this.data[0], this.selector)
+      type = type || this.__getType()
       const prop = this.selector
       switch (type) {
         case 'n':
@@ -170,7 +170,7 @@ export default class DataField {
   desc (type) {
     if (this.selector && this.data.length) {
       let data = []
-      type = type || typeof findProp(this.data[0], this.selector)
+      type = type || this.__getType()
       const prop = this.selector
       switch (type) {
         case 'n':
@@ -259,5 +259,25 @@ export default class DataField {
 
   __reset () {
     this.selector = ''
+  }
+
+  __getType (selector = this.selector) {
+    if (!selector) return
+    for (let i = 0; i < this.data.length; i++) {
+      const prop = findProp(this.data[i], selector)
+      if (prop) {
+        return typeof prop
+      }
+    }
+  }
+
+  __findFirstOccurrence (selector) {
+    if (!selector) return
+    for (let i = 0; i < this.data.length; i++) {
+      const prop = findProp(this.data[i], selector)
+      if (prop) {
+        return prop
+      }
+    }
   }
 }
