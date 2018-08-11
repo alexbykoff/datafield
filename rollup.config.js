@@ -10,7 +10,7 @@ export default [{
   input: 'src/datafield.js',
   output: {
     file: main,
-    name: 'lib',
+    name: 'DataField',
     sourcemap: true,
     format: 'umd'
   },
