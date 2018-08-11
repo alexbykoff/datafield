@@ -27,7 +27,7 @@ export default class DataField {
   }
 
   length () {
-    this.reset()
+    this.__reset()
     return this.data.length
   }
 
@@ -196,7 +196,7 @@ export default class DataField {
   }
 
   sum (prop, strict = true) {
-    this.reset()
+    this.__reset()
     return this.data.reduce((sum, el) => {
       const value = findProp(el, prop)
       if (strict) return typeof value === 'number' ? sum + value : sum
@@ -205,7 +205,7 @@ export default class DataField {
   }
 
   avg (prop, strict = true) {
-    this.reset()
+    this.__reset()
     let sum = 0
     let count = 0
     this.data.forEach(el => {
@@ -226,7 +226,7 @@ export default class DataField {
   }
 
   median (prop, strict = true) {
-    this.reset()
+    this.__reset()
     const values = []
     this.data.forEach(el => {
       const value = findProp(el, prop)
@@ -253,12 +253,11 @@ export default class DataField {
   }
 
   values () {
-    this.reset()
+    this.__reset()
     return this.data
   }
 
-  reset () {
-    this.fieldType = ''
+  __reset () {
     this.selector = ''
   }
 }
