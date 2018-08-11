@@ -1,5 +1,6 @@
 import { findProp, randomTakes, checkTypes } from './utils'
 
+/// TODO fix array in comparison
 export default class DataField {
   constructor (array = [], selector) {
     this.data = array
@@ -125,6 +126,9 @@ export default class DataField {
     }
     data = this.data.filter(el => {
       const val = findProp(el, this.selector)
+      if (Array.isArray(val)) {
+        return val.length >= from && val < to.length
+      }
       return val >= from && val < to
     })
     return new DataField(data, this.selector)
@@ -159,6 +163,16 @@ export default class DataField {
         case 'd':
           data = this.data.slice().sort((a, b) => Number(new Date(findProp(a, prop))) - Number(new Date(findProp(b, prop))))
           break
+        case 'array':
+        case 'arr':
+          data = this.data.slice().sort((a, b) => {
+            const _a = findProp(a, prop)
+            const _b = findProp(b, prop)
+            if (Array.isArray(_a) && Array.isArray(_b)) {
+              return _a.length - _b.length
+            }
+          })
+          break
         default:
           return this
       }
@@ -186,6 +200,16 @@ export default class DataField {
         case 'date':
         case 'd':
           data = this.data.slice().sort((a, b) => Number(new Date(findProp(b, prop))) - Number(new Date(findProp(a, prop))))
+          break
+        case 'array':
+        case 'arr':
+          data = this.data.slice().sort((a, b) => {
+            const _a = findProp(a, prop)
+            const _b = findProp(b, prop)
+            if (Array.isArray(_a) && Array.isArray(_b)) {
+              return _b.length - _a.length
+            }
+          })
           break
         default:
           return this
