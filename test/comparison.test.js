@@ -24,6 +24,10 @@ describe('Comparison', function () {
     it('should remove 1 item with matching date', function () {
       expect(dataField.where('registered').eq(new Date('Saturday, February 13, 2016 1:36 AM')).length).toEqual(1)
     })
+
+    it('should keep records with 3 friends', function () {
+      expect(dataField.where('friends').eq(3).length).toEqual(97)
+    })
   })
 
   describe('Inequality', function () {
@@ -37,6 +41,10 @@ describe('Comparison', function () {
 
     it('should remove 1 item with matching date', function () {
       expect(dataField.where('registered').not(new Date('may 1, 2015')).length).toEqual(99)
+    })
+
+    it('should keep records with NOT 2 friends', function () {
+      expect(dataField.where('friends').not(2).length).toEqual(99)
     })
   })
 
@@ -56,6 +64,10 @@ describe('Comparison', function () {
     it('should filter by date', function () {
       expect(dataField.where('registered').gt(new Date('may 1, 2015')).length).toEqual(70)
     })
+
+    it('should keep records with any amount of friends (>0)', function () {
+      expect(dataField.where('friends').gt(0).length).toEqual(98)
+    })
   })
 
   describe('Greater-Equal', function () {
@@ -74,6 +86,10 @@ describe('Comparison', function () {
     it('should filter by date', function () {
       expect(dataField.where('registered').gte(new Date('may 1, 2015')).length).toEqual(71)
     })
+    it('should keep records with 2 or more friends', function () {
+      expect(dataField.where('friends').gte(2).length).toEqual(98)
+    })
+
   })
 
   describe('Less', function () {
@@ -92,6 +108,11 @@ describe('Comparison', function () {
     it('should filter by date', function () {
       expect(dataField.where('registered').lt(new Date('may 1, 2015')).length).toEqual(29)
     })
+
+    it('should keep records with less then 3 friends', function () {
+      expect(dataField.where('friends').lt(3).length).toEqual(3)
+    })
+
   })
 
   describe('Less-Equal', function () {
@@ -110,6 +131,11 @@ describe('Comparison', function () {
     it('should filter by date', function () {
       expect(dataField.where('registered').lte(new Date('may 1, 2015')).length).toEqual(30)
     })
+
+    it('should keep records with 2 or less friends', function () {
+      expect(dataField.where('friends').lte(2).length).toEqual(3)
+    })
+
   })
 
   describe('Sorting', function () {

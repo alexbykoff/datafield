@@ -54,7 +54,12 @@ export default class DataField {
       data = this.data.filter(el => new Date(findProp(el, this.selector)).getTime() === value.getTime())
       return new DataField(data, this.selector)
     }
-    data = this.data.filter(el => findProp(el, this.selector) === value)
+    data = this.data.filter(el => {
+      let propValue = findProp(el, this.selector)
+      if (Array.isArray(propValue)) propValue = propValue.length
+      return propValue === value
+    }
+    )
     return new DataField(data, this.selector)
   }
 
@@ -65,7 +70,12 @@ export default class DataField {
       data = this.data.filter(el => new Date(findProp(el, this.selector)).getTime() !== value.getTime())
       return new DataField(data, this.selector)
     }
-    data = this.data.filter(el => findProp(el, this.selector) !== value)
+    data = this.data.filter(el => {
+      let propValue = findProp(el, this.selector)
+      if (Array.isArray(propValue)) propValue = propValue.length
+      return propValue !== value
+    }
+    )
     return new DataField(data, this.selector)
   }
 
@@ -76,7 +86,12 @@ export default class DataField {
       data = this.data.filter(el => new Date(findProp(el, this.selector)) > value)
       return new DataField(data, this.selector)
     }
-    data = this.data.filter(el => findProp(el, this.selector) > value)
+    data = this.data.filter(el => {
+      let propValue = findProp(el, this.selector)
+      if (Array.isArray(propValue)) propValue = propValue.length
+      return propValue > value
+    }
+    )
     return new DataField(data, this.selector)
   }
 
@@ -87,7 +102,12 @@ export default class DataField {
       data = this.data.filter(el => new Date(findProp(el, this.selector)) < value)
       return new DataField(data, this.selector)
     }
-    data = this.data.filter(el => findProp(el, this.selector) < value)
+    data = this.data.filter(el => {
+      let propValue = findProp(el, this.selector)
+      if (Array.isArray(propValue)) propValue = propValue.length
+      return propValue < value
+    }
+    )
     return new DataField(data, this.selector)
   }
 
@@ -98,7 +118,12 @@ export default class DataField {
       data = this.data.filter(el => new Date(findProp(el, this.selector)) >= value)
       return new DataField(data, this.selector)
     }
-    data = this.data.filter(el => findProp(el, this.selector) >= value)
+    data = this.data.filter(el => {
+      let propValue = findProp(el, this.selector)
+      if (Array.isArray(propValue)) propValue = propValue.length
+      return propValue >= value
+    }
+    )
     return new DataField(data, this.selector)
   }
 
@@ -109,7 +134,12 @@ export default class DataField {
       data = this.data.filter(el => new Date(findProp(el, this.selector)) <= value)
       return new DataField(data, this.selector)
     }
-    data = this.data.filter(el => findProp(el, this.selector) <= value)
+    data = this.data.filter(el => {
+      let propValue = findProp(el, this.selector)
+      if (Array.isArray(propValue)) propValue = propValue.length
+      return propValue <= value
+    }
+    )
     return new DataField(data, this.selector)
   }
 
