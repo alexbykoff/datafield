@@ -11,7 +11,6 @@ html, body {
 }
 
 .menu {
-  padding-top: 3rem;
   width: 14rem;
   position: fixed;
   top: 0;
@@ -20,10 +19,13 @@ html, body {
   overflow-x: hidden;
   overflow-y: auto;
   height: 100vh;
+  border-right: 1px solid #bbb;
+  box-shadow: 2px 0 0 #888;
 }
 
 .main {
   margin-left: 16rem;
+
 }
 
 h1 {
@@ -36,6 +38,10 @@ h1 {
 
 .menu ul {
   list-style-type: none;
+  padding-left: .5rem;
+}
+
+.menu > ul {
   padding-left: 1rem;
 }
 
@@ -43,13 +49,43 @@ h1 {
   padding: .125rem .25rem;
 }
 
-.menu li a {
+.menu a {
   text-decoration-line: none;
   display: inline-block;
-  color: #100c5f;
-  border-bottom: 1px dashed #100c5f;
 }
 
-.menu li a:hover {
+.menu a:hover {
   color: orangered;
+  border-bottom: 1px solid forestgreen;
+}
+
+.first-level {
+  color: #100c5f;
+  border-bottom: 1px dashed #100c5f;
+  font-weight: bolder;
+  font-size: 1.25rem;
+}
+
+.second-level {
+  color: #100c5f;
+  border-bottom: 1px dashed #100c5f;
+  font-weight: bolder;
+}
+
+
+.section li a {
+  color: #100c5f;
+  border-bottom: 1px dashed #100c5f;
+  font-weight: normal;
+}
+
+.menu .section {
+  padding-bottom: .5rem;
+}
+
+.menu h2 {
+  font-family: "Arial Black", Arial, sans-serif;
+  color: #777;
+  font-weight: bold;
+  padding-left: 1rem;
 }
