@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.menu {
+  padding-top: 3rem;
+  width: 14rem;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background-color: #eee;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.main {
+  margin-left: 16rem;
+}
+
+h1 {
+  font-weight: inherit;
+}
+
+.hidden {
+  display: none;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding-left: 1rem;
+}
+
+.menu li {
+  padding: .125rem .25rem;
+}
+
+.menu li a {
+  text-decoration-line: none;
+  display: inline-block;
+  color: #100c5f;
+  border-bottom: 1px dashed #100c5f;
+}
+
+.menu li a:hover {
+  color: orangered;
+}

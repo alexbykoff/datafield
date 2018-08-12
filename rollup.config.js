@@ -4,12 +4,10 @@ import buble from 'rollup-plugin-buble'
 import pkg from './package.json'
 import { terser } from 'rollup-plugin-terser'
 
-const {main} = pkg
-
 export default [{
   input: 'src/datafield.js',
   output: {
-    file: main,
+    file: pkg.main,
     name: 'DataField',
     sourcemap: true,
     format: 'umd'

@@ -56,20 +56,7 @@
         "excepteur",
         "ex"
       ],
-      "friends": [
-        {
-          "id": 0,
-          "name": "Walsh Mckee"
-        },
-        {
-          "id": 1,
-          "name": "Cortez Oneal"
-        },
-        {
-          "id": 2,
-          "name": "Stout Flynn"
-        }
-      ]
+      "friends": []
     },
     {
       "_id": "5b420ae993b405f6d5e9eaca",
@@ -92,20 +79,7 @@
         "nisi",
         "cillum"
       ],
-      "friends": [
-        {
-          "id": 0,
-          "name": "Rachelle Horne"
-        },
-        {
-          "id": 1,
-          "name": "Alexander Harrington"
-        },
-        {
-          "id": 2,
-          "name": "Solomon Elliott"
-        }
-      ]
+      "friends":null
     },
     {
       "_id": "5b420ae976dc28978caa75c6",

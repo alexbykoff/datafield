@@ -27,7 +27,7 @@ export default class DataField {
     return data
   }
 
-  length () {
+  get length () {
     this.__reset()
     return this.data.length
   }
@@ -127,7 +127,7 @@ export default class DataField {
     data = this.data.filter(el => {
       const val = findProp(el, this.selector)
       if (Array.isArray(val)) {
-        return val.length >= from && val < to.length
+        return val.length >= from && val.length < to
       }
       return val >= from && val < to
     })
