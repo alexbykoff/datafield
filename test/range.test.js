@@ -46,4 +46,10 @@ describe('Range', function () {
     })
   })
 
+  describe('Successful filtering by array length (take only length of 2)', function () {
+    it('selects arrays with length >0', function () {
+      expect(dataField.where('friends').range(2, 3).length).toEqual(1)
+    })
+  })
+
 })
