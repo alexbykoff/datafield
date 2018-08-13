@@ -1,6 +1,6 @@
 import { findProp, randomTakes, checkTypes } from './utils'
 
-/// TODO fix array in comparison
+/// TODO: Errors in separate module
 export default class DataField {
   constructor (array = [], selector) {
     if (!Array.isArray(array)) throw new Error('DataField can only accept arrays')
