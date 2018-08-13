@@ -51,6 +51,14 @@ describe('Math operations', function () {
     it('should get median for age WITHOUT type coercion', function () {
       expect(dataField.median('age')).toEqual(44)
     })
+
+    it('should return 0 if there are no entries', function () {
+      expect(new DataField([]).median('age')).toEqual(0)
+    })
+
+    it('should return value if there is only 1 value', function () {
+      expect(new DataField([{value: 42}]).median('value')).toEqual(42)
+    })
   })
 
   describe('Random', function () {

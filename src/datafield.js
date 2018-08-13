@@ -308,7 +308,11 @@ export default class DataField {
 
   values () {
     this.__reset()
-    return this.data
+    return this.data.slice(0)
+  }
+
+  toArray () {
+    return this.values()
   }
 
   __reset () {
