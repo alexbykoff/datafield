@@ -165,6 +165,16 @@ export default class DataField {
     return new DataField(data, this.selector)
   }
 
+  includes (value) {
+    if (!this.selector) throw new Error('DataField: selector not specified, use .where(selector)')
+    if (value === undefined) return this
+    const data = this.data.filter(el => {
+      const prop = findProp(el, this.selector)
+      return Array.isArray(prop) && prop.includes(value)
+    })
+    return new DataField(data)
+  }
+
   sort ({by, order = 'asc', type} = {}) {
     const prop = this.__findFirstOccurrence(by)
     if (!by || !prop) return this
@@ -175,79 +185,77 @@ export default class DataField {
   }
 
   asc (type) {
-    if (this.selector && this.data.length) {
-      let data = []
-      type = type || this.__getType()
-      const prop = this.selector
-      switch (type) {
-        case 'n':
-        case 'num':
-        case 'number':
-          data = this.data.slice().sort((a, b) => findProp(a, prop) - findProp(b, prop))
-          break
-        case 'string':
-        case 'str':
-        case 's':
-          data = this.data.slice().sort((a, b) => String(findProp(a, prop)).localeCompare(String(findProp(b, prop))))
-          break
-        case 'date':
-        case 'd':
-          data = this.data.slice().sort((a, b) => Number(new Date(findProp(a, prop))) - Number(new Date(findProp(b, prop))))
-          break
-        case 'array':
-        case 'arr':
-          data = this.data.slice().sort((a, b) => {
-            const _a = findProp(a, prop)
-            const _b = findProp(b, prop)
-            if (Array.isArray(_a) && Array.isArray(_b)) {
-              return _a.length - _b.length
-            }
-          })
-          break
-        default:
-          return this
-      }
-      return new DataField(data, this.selector)
+    if (!this.selector) throw new Error('DataField: selector not specified, use .where(selector)')
+    if (!this.data.length) return this
+    let data = []
+    type = type || this.__getType()
+    const prop = this.selector
+    switch (type) {
+      case 'n':
+      case 'num':
+      case 'number':
+        data = this.data.slice().sort((a, b) => findProp(a, prop) - findProp(b, prop))
+        break
+      case 'string':
+      case 'str':
+      case 's':
+        data = this.data.slice().sort((a, b) => String(findProp(a, prop)).localeCompare(String(findProp(b, prop))))
+        break
+      case 'date':
+      case 'd':
+        data = this.data.slice().sort((a, b) => Number(new Date(findProp(a, prop))) - Number(new Date(findProp(b, prop))))
+        break
+      case 'array':
+      case 'arr':
+        data = this.data.slice().sort((a, b) => {
+          const _a = findProp(a, prop)
+          const _b = findProp(b, prop)
+          if (Array.isArray(_a) && Array.isArray(_b)) {
+            return _a.length - _b.length
+          }
+        })
+        break
+      default:
+        return this
     }
-    return this
+    return new DataField(data, this.selector)
   }
 
   desc (type) {
-    if (this.selector && this.data.length) {
-      let data = []
-      type = type || this.__getType()
-      const prop = this.selector
-      switch (type) {
-        case 'n':
-        case 'num':
-        case 'number':
-          data = this.data.slice().sort((a, b) => findProp(b, prop) - findProp(a, prop))
-          break
-        case 'string':
-        case 'str':
-        case 's':
-          data = this.data.slice().sort((a, b) => String(findProp(b, prop)).localeCompare(String(findProp(a, prop))))
-          break
-        case 'date':
-        case 'd':
-          data = this.data.slice().sort((a, b) => Number(new Date(findProp(b, prop))) - Number(new Date(findProp(a, prop))))
-          break
-        case 'array':
-        case 'arr':
-          data = this.data.slice().sort((a, b) => {
-            const _a = findProp(a, prop)
-            const _b = findProp(b, prop)
-            if (Array.isArray(_a) && Array.isArray(_b)) {
-              return _b.length - _a.length
-            }
-          })
-          break
-        default:
-          return this
-      }
-      return new DataField(data, this.selector)
+    if (!this.selector) throw new Error('DataField: selector not specified, use .where(selector)')
+    if (!this.data.length) return this
+    let data = []
+    type = type || this.__getType()
+    const prop = this.selector
+    switch (type) {
+      case 'n':
+      case 'num':
+      case 'number':
+        data = this.data.slice().sort((a, b) => findProp(b, prop) - findProp(a, prop))
+        break
+      case 'string':
+      case 'str':
+      case 's':
+        data = this.data.slice().sort((a, b) => String(findProp(b, prop)).localeCompare(String(findProp(a, prop))))
+        break
+      case 'date':
+      case 'd':
+        data = this.data.slice().sort((a, b) => Number(new Date(findProp(b, prop))) - Number(new Date(findProp(a, prop))))
+        break
+      case 'array':
+      case 'arr':
+        data = this.data.slice().sort((a, b) => {
+          const _a = findProp(a, prop)
+          const _b = findProp(b, prop)
+          if (Array.isArray(_a) && Array.isArray(_b)) {
+            return _b.length - _a.length
+          }
+        })
+        break
+      default:
+        return this
     }
-    return this
+    return new DataField(data, this.selector)
   }
 
   sum (prop, strict = true) {

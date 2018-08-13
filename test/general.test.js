@@ -54,6 +54,19 @@ describe('General', function () {
       expect(data.length).toEqual(0)
     })
   })
+  describe('Includes', function () {
+    it('should throw an error when used without selector', function () {
+      expect(() => dataField.includes('ad')).toThrow('DataField: selector not specified, use .where(selector)')
+    })
+
+    it('should return this if no value is specified', function () {
+      expect(dataField.where('tags').includes().length).toEqual(100)
+    })
+
+    it('filters by array including value', function () {
+      expect(dataField.where('tags').includes('ad').length).toEqual(5)
+    })
+  })
 })
 
 

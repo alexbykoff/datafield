@@ -13,20 +13,20 @@ describe('Sorting', function () {
     dataField = new DataField(content)
   })
 
-  it('should sort unchanged dataset when empty asc()', function () {
-    expect(dataField.asc().length).toEqual(100)
+  it('should throw an error', function () {
+    expect(() => dataField.asc()).toThrow('DataField: selector not specified, use .where(selector)')
   })
 
-  it('should do nothing when there is no data', function () {
-    expect(new DataField([]).asc().length).toEqual(0)
+  it('should throw an error on empty set', function () {
+    expect(() => new DataField([]).asc()).toThrow('DataField: selector not specified, use .where(selector)')
   })
 
   it('should return unchanged dataset when sorting type is not supported', function () {
-    expect(dataField.asc({}).length).toEqual(100)
+    expect(dataField.where('age').asc().length).toEqual(100)
   })
 
-  it('should return unchanged dataset when empty desc()', function () {
-    expect(dataField.desc().length).toEqual(100)
+  it('should throw an error', function () {
+    expect(() => dataField.desc()).toThrow('DataField: selector not specified, use .where(selector)')
   })
 
   it('should sort data alphabetically', function () {
