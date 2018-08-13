@@ -4,9 +4,12 @@
   <meta charset="UTF-8">
   <title>DataField — Javascript Library</title>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300" rel="stylesheet">
+  <link rel="stylesheet" href="https://rawgit.com/tomkallen/docui/master/docui.css">
   <link rel="stylesheet" href="./main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
 </head>
 <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script src="https://rawgit.com/tomkallen/datafield/master/dist/index.js"></script>
 <script>
   fetch('https://rawgit.com/tomkallen/datafield/master/test/data.json')
@@ -15,7 +18,6 @@
 </script>
 
 <div class="menu">
-  <h2>DATAFIELD</h2>
   <ul>
     <li><a class="first-level" href="#datafield">What is DataField</a></li>
     <li><a class="first-level" href="#api">API</a>
@@ -64,8 +66,49 @@
   </ul>
 </div>
 <div class="main">
-  <h1>doc stub</h1>
-  <h2>WIP</h2>
+  <div class="container">
+    <div class="row">
+      <div class="column c6">
+        <div class="header">DataField</div>
+        <div class="header-medium">Select, sort, filter and perform maths and analysis on your arrays of data</div>
+        <div class="header-small">Zero-dependency Javascript library that works with collections</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column c6">
+        <div class="paragraph-title">What is DataField</div>
+        <p>DataField is a library that helps you wrangle your awesome collections of data you obtain from different
+          sources.</p>
+        <p>Imagine you are building a web application that deals with users. You make a API request and receive an array
+          of 100 entries that look like this one below:</p>
+        <pre>
+        <code class="json">
+    {
+      "_id": "5b420ae94fe6464ff91f5de8",
+      "index": 0,
+      "guid": "871eebf0-9983-4eb5-a0b5-59372a2fbecd",
+      "isActive": true,
+      "balance": "$1,268.06",
+      "age": 41,
+      "name": {
+        "first": "Pearlie",
+        "last": "Osborne"
+      },
+      "company": "PIVITOL",
+      "email": "pearlie.osborne@pivitol.net",
+      "phone": "+1 (992) 418-2307",
+      "address": "190 River Street, Spelter, Tennessee, 1088",
+      "registered": "Monday, April 18, 2016 7:35 AM",
+      "tags": ["ad", "magna", "aliqua"],
+      "friends": [{"id": 0, "name": "Whitney Snow"}, {"id": 1, "name": "Garza Hernandez"}, {"id": 2,"name": "Lourdes Conley"}]
+    }
+        </code>
+      </pre>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>
