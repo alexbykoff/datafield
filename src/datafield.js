@@ -3,7 +3,8 @@ import { findProp, randomTakes, checkTypes } from './utils'
 /// TODO fix array in comparison
 export default class DataField {
   constructor (array = [], selector) {
-    this.data = array
+    if (!Array.isArray(array)) throw new Error('DataField can only accept arrays')
+    this.data = array.slice(0) // https://jsperf.com/cloning-arrays/3
     this.caret = 0
     this.selector = selector
   }
@@ -144,7 +145,7 @@ export default class DataField {
   }
 
   range (from, to) {
-    if (!checkTypes(from, to)) throw new Error('bad arguments')
+    if (!checkTypes(from, to)) throw new Error('DataField range() method accepts 2 arguments of the same type')
     if (!this.selector) return this
     let data
     if (from instanceof Date) {
@@ -308,7 +309,7 @@ export default class DataField {
 
   values () {
     this.__reset()
-    return this.data.slice(0)
+    return this.data.slice(0) // https://jsperf.com/cloning-arrays/3
   }
 
   toArray () {

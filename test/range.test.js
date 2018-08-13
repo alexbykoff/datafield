@@ -13,9 +13,10 @@ describe('Range', function () {
   })
   describe('Different comparison types', function () {
     it('should throw an error as types are different', function () {
-      expect(() => dataField.where('index').range(1, 'str')).toThrow('bad arguments')
-      expect(() => dataField.where('index').range('str')).toThrow('bad arguments')
-      expect(() => dataField.where('index').range()).toThrow('bad arguments')
+      const err = 'DataField range() method accepts 2 arguments of the same type'
+      expect(() => dataField.where('index').range(1, 'str')).toThrow(err)
+      expect(() => dataField.where('index').range('str')).toThrow(err)
+      expect(() => dataField.where('index').range()).toThrow(err)
     })
   })
 
