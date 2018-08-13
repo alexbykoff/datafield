@@ -11,16 +11,15 @@ html, body {
 }
 
 .menu {
-  width: 14rem;
+  padding-top: 3rem;
+  width: 16rem;
   position: fixed;
   top: 0;
   bottom: 0;
-  background-color: #eee;
+  background-color: #b1ffce;
   overflow-x: hidden;
   overflow-y: auto;
   height: 100vh;
-  border-right: 1px solid #bbb;
-  box-shadow: 2px 0 0 #888;
 }
 
 .main {
@@ -87,4 +86,11 @@ h1 {
   color: #777;
   font-weight: bold;
   padding-left: 1rem;
+}
+.main pre {
+  margin: .5rem 0;
+}
+
+.main pre code, .main pre code span {
+  font-size: 14px !important;
 }

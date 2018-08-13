@@ -5,8 +5,8 @@
   <title>DataField — Javascript Library</title>
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300" rel="stylesheet">
   <link rel="stylesheet" href="https://rawgit.com/tomkallen/docui/master/docui.css">
-  <link rel="stylesheet" href="./main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="./main.css">
 </head>
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
@@ -14,12 +14,14 @@
 <script>
   fetch('https://rawgit.com/tomkallen/datafield/master/test/data.json')
     .then(r => r.json())
-    .then(r => window.data = r.data)
+    .then(r => window.users = new DataField(r.data))
 </script>
 
 <div class="menu">
   <ul>
     <li><a class="first-level" href="#datafield">What is DataField</a></li>
+    <li><a class="first-level" href="#how">How It Works</a></li>
+    <li><a class="first-level" href="#install">Installation</a></li>
     <li><a class="first-level" href="#api">API</a>
       <ul>
         <li class="section"><a class="second-level" href="#filtering">Basic operations. Filtering</a>
@@ -69,14 +71,14 @@
   <div class="container">
     <div class="row">
       <div class="column c6">
-        <div class="header">DataField</div>
+        <div class="header">DataField.js</div>
         <div class="header-medium">Select, sort, filter and perform maths and analysis on your arrays of data</div>
         <div class="header-small">Zero-dependency Javascript library that works with collections</div>
       </div>
     </div>
     <div class="row">
       <div class="column c6">
-        <div class="paragraph-title">What is DataField</div>
+        <div id="datafield" class="paragraph-title">What is DataField</div>
         <p>DataField is a library that helps you wrangle your awesome collections of data you obtain from different
           sources.</p>
         <p>Imagine you are building a web application that deals with users. You make a API request and receive an array
@@ -104,11 +106,46 @@
     }
         </code>
       </pre>
+        <p>With this library it is rather easy to perform various actions on your data.</p>
+        <div id="how" class="paragraph-title">How It Works</div>
+        <pre><code class="javascript">const users = new DataField(arrayOfUsers)</code></pre>
+        <p>Now your data is stored within an instance of DataField class.</p>
+        <p>Each method that performs any kind of selection or filtering returns a <b>new instance</b> of DataField and
+          can be chained.</p>
+        <p>Math methods return primitives and can not be chained</p>
+        <p>To extract your data use <em>.values()</em> or <em>toArray()</em></p>
+        <br>
+        Lets filter our data. We need users who are 30 years old or older, but not 41 years old and have at least 2
+        friends (but less than
+        10). We want our list sorted by last name
+        <em>(yes, we can work with nested props)</em> in descending order. We are done so we want an array out of that:
+        <pre><code class="javascript">
+          users.where('age').gte(30).not(41)
+            .where('friends').range(2, 10)
+            .sort({by: 'name.last', order: 'desc'})
+            .toArray()</code></pre>
+        <p>That's it. API is short and simple. Look to the left – there is a list of methods.</p>
+        <div class="note">Open console in your browser. There is a variable <b>users</b> there you can play with — it is a DataField instance with 100 entries in it.</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column c6">
+        <div id="install" class="paragraph-title">Installation</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column c6">
+        <div id="api" class="paragraph-title">API</div>
+        <div class="row">
+          <div class="column c6">
+            .where()
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<script>hljs.initHighlightingOnLoad();</script>
+<script>hljs.initHighlightingOnLoad()</script>
 </body>
 </html>
