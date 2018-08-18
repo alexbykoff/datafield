@@ -28,11 +28,11 @@
           <ul>
             <li><a href="#where">where</a></li>
             <li><a href="#values">values</a></li>
-            <li><a href="#toArray">toArray</a></li>
+            <li><a href="#toarray">toArray</a></li>
             <li><a href="#exists">exists</a></li>
             <li><a href="#has">has</a></li>
             <li><a href="#take">take</a></li>
-            <li><a href="#random">takeRandom</a></li>
+            <li><a href="#takerandom">takeRandom</a></li>
           </ul>
         </li>
         <li class="section"><a class="second-level" href="#comparison">Comparison</a>
@@ -76,7 +76,12 @@
       <div class="column c6">
         <div class="header">DataField.js</div>
         <div class="header-medium">Select, sort, filter and perform maths and analysis on your arrays of data</div>
-        <div class="header-small">Zero-dependency Javascript library that works with collections</div>
+        <div class="header-small">Zero-dependency Javascript library for Node and browsers that works with collections
+        </div>
+      </div>
+      <div class="column c6">
+        <div class="button"><a href="https://tomkallen.github.com/datafield">Github</a></div>
+        <div class="button">NPM</div>
       </div>
     </div>
     <div class="row">
@@ -182,6 +187,7 @@ users
               <code class="js">users.toArray().map(user => user.age)</code>
             </pre>
           </div>
+          <div class="line"></div>
         </div>
         <div class="row">
           <div class="column c6">
@@ -193,7 +199,8 @@ users
         <div class="row">
           <div class="column c6">
             <div class="sub" id="exists">exists(<em>[property]</em>)</div>
-            <p>Selects entries where property <em><b>exists</b></em>. If no property value is passed then library tries to use the last selector</p>
+            <p>Selects entries where property <em><b>exists</b></em>. If no property value is passed then library tries
+              to use the last selector</p>
             <pre>
               <code class="js">
 // this is okay:
@@ -218,8 +225,50 @@ users.has('email').where('age').gte(18).median()
               </code>
             </pre>
           </div>
+          <div class="line"></div>
         </div>
 
+        <!--TAKE-->
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="take">take(<em>Number</em>)</div>
+            <p>Returns <span class="monospan">Number</span> entries from DataField object, starting from the first one.
+              If value is not provided then returns one entry. If value is greater than amount of entries left - returns the rest of them</p>
+            <pre>
+              <code class="js">
+users.where('age').asc().take(10)
+              </code>
+            </pre>
+            <div class="note">
+              Important! History of <span class="monospan">take()</span> is stored in an instance the method was called on. Consider the following:
+            </div>
+            <pre>
+              <code class="js">
+const users = new DataField(data)  // 12 entries in an array
+firstFive = users.take(5) // indices 0 - 4
+SecondFive = users.take(5) // indices 5 - 9
+restOfUsers = users.take(5) // indices 9 - end of array
+              </code>
+            </pre>
+          </div>
+
+          <div class="line"></div>
+        </div>
+
+        <!--TAKERANDOM-->
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="takerandom">takeRandom(<em>Number</em>)</div>
+            <p>Returns <span class="monospan">Number</span> <em>random</em> entries from DataField object.
+              If value is not provided then returns one entry. Unlike <span class="monospan">take()</span> method does not track its own history</p>
+            <pre>
+              <code class="js">
+users.takeRandom() // returns one random entry
+              </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
       </div>
 
     </div>
