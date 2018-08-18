@@ -134,6 +134,16 @@ describe('Comparison', function () {
     it('should keep records with 2 or less friends', function () {
       expect(dataField.where('friends').lte(2).length).toEqual(3)
     })
+  })
+
+  describe('Boolean filters', function () {
+    it('should leave only the active accounts', function () {
+      expect(dataField.where('isActive').isTruthy().length).toEqual(48)
+    })
+
+    it('should leave only the inactive accounts', function () {
+      expect(dataField.where('isActive').isFalsy().length).toEqual(52)
+    })
 
   })
 })

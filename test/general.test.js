@@ -1,5 +1,6 @@
 import DataField from '../src/datafield'
 import * as data from './data.json'
+import error from '../src/errors'
 
 const content = data.data
 
@@ -12,8 +13,22 @@ describe('General', function () {
     dataField = new DataField(content)
   })
 
+  describe('Constructor errors', function () {
+    it('throws an error if no array is provided', function () {
+      expect(() => new DataField()).toThrow('array should be passed into the DataField constructor')
+    })
+
+    it('throws an error if no argument is not an array', function () {
+      expect(() => new DataField({})).toThrow('DataField can only accept arrays')
+    })
+
+    it('throws a general error if error type is unknown', function () {
+      expect(() => error()).toThrow('DataField error')
+    })
+  })
+
   describe('Data array', function () {
-    it('should contain data for 100 entries', function () {
+    it('contains data for 100 entries', function () {
       expect(content.length).toEqual(100)
     })
   })
