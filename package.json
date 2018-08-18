@@ -1,5 +1,13 @@
 {
     "name": "datafield",
+    "keywords": [
+        "arrays",
+        "collections",
+        "data",
+        "sorting",
+        "filtering",
+        "database"
+    ],
     "version": "0.1.0",
     "description": "Sort, select, filter, evaluate and perform maths on your arrays of data",
     "main": "./dist/datafield.min.js",

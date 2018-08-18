@@ -55,6 +55,6 @@ Lets filter our data. We need users who are 30 years old or older, but not 41 ye
     users.where('age').gte(30).not(41).where('friends').range(2, 10).sort({by: 'name.last', order: 'desc'}).toArray()
 
 That's it. API is short and simple.
-Also, read [Documentation](https://tomkallen.github.io/datafield/)
+Also, read the [Documentation](https://tomkallen.github.io/datafield/)
 
 `npm install datafield`
