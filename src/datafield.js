@@ -49,6 +49,18 @@ export default class DataField {
     return this
   }
 
+  isTruthy () {
+    if (!this.selector) error('NO_SEL')
+    const data = this.data.filter(el => findProp(el, this.selector))
+    return new DataField(data)
+  }
+
+  isFalsy () {
+    if (!this.selector) error('NO_SEL')
+    const data = this.data.filter(el => !findProp(el, this.selector))
+    return new DataField(data)
+  }
+
   eq (value) {
     if (!this.selector) return this
     let data
