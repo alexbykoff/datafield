@@ -8,7 +8,16 @@
         "filtering",
         "database"
     ],
-    "version": "0.1.0",
+    "homepage": "https://tomkallen.github.io/datafield/",
+    "repository": {
+        "type" : "git",
+        "url" : "https://github.com/tomkallen/datafield.git"
+    },
+    "bugs": {
+        "url": "https://github.com/tomkallen/datafield/issues",
+        "email": "comradebykoff@gmail.com"
+    },
+    "version": "0.1.1",
     "description": "Sort, select, filter, evaluate and perform maths on your arrays of data",
     "main": "./dist/datafield.min.js",
     "module": "./src/datafield.js",
