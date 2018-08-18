@@ -14,11 +14,11 @@ describe('Sorting', function () {
   })
 
   it('should throw an error', function () {
-    expect(() => dataField.asc()).toThrow('DataField: selector not specified, use .where(selector)')
+    expect(() => dataField.asc()).toThrow('DataField selector not specified, use .where(selector)')
   })
 
   it('should throw an error on empty set', function () {
-    expect(() => new DataField([]).asc()).toThrow('DataField: selector not specified, use .where(selector)')
+    expect(() => new DataField([]).asc()).toThrow('DataField selector not specified, use .where(selector)')
   })
 
   it('should return unchanged dataset when sorting type is not supported', function () {
@@ -26,7 +26,7 @@ describe('Sorting', function () {
   })
 
   it('should throw an error', function () {
-    expect(() => dataField.desc()).toThrow('DataField: selector not specified, use .where(selector)')
+    expect(() => dataField.desc()).toThrow('DataField selector not specified, use .where(selector)')
   })
 
   it('should sort data alphabetically', function () {

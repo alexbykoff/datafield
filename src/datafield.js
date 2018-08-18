@@ -1,9 +1,10 @@
 import { findProp, randomTakes, checkTypes } from './utils'
+import error from './errors'
 
-/// TODO: Errors in separate module
+// TODO: Boolean comparison
 export default class DataField {
-  constructor (array = [], selector) {
-    if (!Array.isArray(array)) throw new Error('DataField can only accept arrays')
+  constructor (array = error('NO_CONS'), selector) {
+    if (!Array.isArray(array)) error('NOT_ARRAY')
     this.data = array.slice(0) // https://jsperf.com/cloning-arrays/3
     this.caret = 0
     this.selector = selector
@@ -145,7 +146,7 @@ export default class DataField {
   }
 
   range (from, to) {
-    if (!checkTypes(from, to)) throw new Error('DataField range() method accepts 2 arguments of the same type')
+    if (!checkTypes(from, to)) error('RANGE_ARG')
     if (!this.selector) return this
     let data
     if (from instanceof Date) {
@@ -166,7 +167,7 @@ export default class DataField {
   }
 
   includes (value) {
-    if (!this.selector) throw new Error('DataField: selector not specified, use .where(selector)')
+    if (!this.selector) error('NO_SEL')
     if (value === undefined) return this
     const data = this.data.filter(el => {
       const prop = findProp(el, this.selector)
@@ -185,7 +186,7 @@ export default class DataField {
   }
 
   asc (type) {
-    if (!this.selector) throw new Error('DataField: selector not specified, use .where(selector)')
+    if (!this.selector) error('NO_SEL')
     if (!this.data.length) return this
     let data = []
     type = type || this.__getType()
@@ -222,7 +223,7 @@ export default class DataField {
   }
 
   desc (type) {
-    if (!this.selector) throw new Error('DataField: selector not specified, use .where(selector)')
+    if (!this.selector) error('NO_SEL')
     if (!this.data.length) return this
     let data = []
     type = type || this.__getType()

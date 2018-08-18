@@ -56,7 +56,7 @@ describe('General', function () {
   })
   describe('Includes', function () {
     it('should throw an error when used without selector', function () {
-      expect(() => dataField.includes('ad')).toThrow('DataField: selector not specified, use .where(selector)')
+      expect(() => dataField.includes('ad')).toThrow('DataField selector not specified, use .where(selector)')
     })
 
     it('should return this if no value is specified', function () {
