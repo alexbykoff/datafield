@@ -10,7 +10,7 @@ export default class DataField {
     this.selector = selector
   }
 
-  exists (prop) {
+  exists (prop = this.selector) {
     const data = this.data.filter(el => findProp(el, prop) !== undefined)
     return new DataField(data, this.selector)
   }

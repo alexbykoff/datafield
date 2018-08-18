@@ -43,6 +43,8 @@
             <li><a href="#gte">gte</a></li>
             <li><a href="#lt">lt</a></li>
             <li><a href="#lte">lte</a></li>
+            <li><a href="#truthy">truthy</a></li>
+            <li><a href="#falsy">falsy</a></li>
             <li><a href="#includes">includes</a></li>
           </ul>
         </li>
@@ -82,7 +84,8 @@
         <div id="datafield" class="paragraph-title">What is DataField</div>
         <p>DataField is a library that helps you wrangle your awesome collections of data you obtain from different
           sources.</p>
-        <p>Imagine you are building a web application that deals with users. You make an API request and receive an array
+        <p>Imagine you are building a web application that deals with users. You make an API request and receive an
+          array
           of 100 entries which look like this one below:</p>
         <pre>
         <code class="json">
@@ -117,9 +120,10 @@
         <p>To extract your data use <em>.values()</em> or <em>toArray()</em></p>
         <br>
         <b>Lets filter our data. We need users who are 30 years old or older, but not 41 years old and have at least 2
-        friends, but less than
-        10. Also we want our list sorted by last name
-        <em>(library can work with nested props)</em> in descending order. Then we are done so we want an array out of that:</b>
+          friends, but less than
+          10. Also we want our list sorted by last name
+          <em>(library can work with nested props)</em> in descending order. Then we are done so we want an array out of
+          that:</b>
         <pre><code class="javascript">users.where('age').gte(30).not(41).where('friends').range(2, 10).sort({by: 'name.last', order: 'desc'}).toArray()</code></pre>
         <p>That's it. API is short and simple. Look to the left – there is a list of methods.</p>
         <div class="note">Open console in your browser. There is a variable <b>users</b> there you can play with — it is
@@ -131,23 +135,100 @@
       <div class="column c6">
         <div id="install" class="paragraph-title">Installation</div>
       </div>
+      <div class="column c6">
+        npm:
+        <div class="monospan">npm install datafield</div>
+        cdn:
+        <div class="monospan">wip</div>
+      </div>
     </div>
     <div class="row">
       <div class="column c6">
         <div id="api" class="paragraph-title">API</div>
         <div class="row">
           <div class="column c6">
-            .where()
+            <div class="sub" id="where">.where(<em>string</em>)</div>
+            <p>Basic property selector. All subsequent operations will be based on this selector.
+              If no selector present an error will be thrown</p>
+            <pre>
+              <code class="js">
+users.where('age').eq(30)
+              </code>
+            </pre>
+            <p>Nested properties can be selected using dot notation within a string</p>
+            <pre>
+              <code class="js">
+users.where('name.last').gte('B')
+              </code>
+            </pre>
+            <p>If you need to filter your data based on multiple properties you can chain them</p>
+            <pre>
+              <code class="js">
+users
+    .where('age').gte(18)
+    .where('isActive').isTruthy()
+    .where('friends').range(2,20)
+              </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="values">.values()</div>
+            <p>Unwraps DataField instance into an array. <span class="monospan">toArray()</span> does the same job.
+            </p>
+            <pre>
+              <code class="js">users.toArray().map(user => user.age)</code>
+            </pre>
           </div>
         </div>
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="toarray">toArray()</div>
+            Another syntax for <span class="monospan">values()</span>
+          </div>
+          <div class="line"></div>
+        </div>
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="exists">exists(<em>[property]</em>)</div>
+            <p>Selects entries where property <em><b>exists</b></em>. If no property value is passed then library tries to use the last selector</p>
+            <pre>
+              <code class="js">
+// this is okay:
+users.where('email').exists()
+// this is okay too:
+users.exists('email')
+// this will throw an error:
+users.exists()
+              </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="has">has(<em>selector</em>)</div>
+            <p>Selects entries where property <em><b>exists and has truthy value</b></em>.</p>
+            <pre>
+              <code class="js">
+users.has('email').where('age').gte(18).median()
+// selects users who have their email added to the profile, 18 years or older and return the age median of such users
+              </code>
+            </pre>
+          </div>
+        </div>
+
       </div>
+
     </div>
   </div>
 </div>
 
 <script>
   hljs.initHighlightingOnLoad()
-  console.log("*****\nDataField library loaded for your pleasure. Try global 'users' variable\n*****")
+  console.log('*****\nDataField library loaded for your pleasure. Try global \'users\' variable\n*****')
 </script>
 </body>
 </html>

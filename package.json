@@ -2,7 +2,7 @@
     "name": "datafield",
     "version": "0.1.0",
     "description": "Sort, select, filter and perform maths on your arrays of data",
-    "main": "./dist/index.js",
+    "main": "./dist/datafield.min.js",
     "module": "./src/datafield.js",
     "scripts": {
         "test": "npm run lint && jest && codecov",
