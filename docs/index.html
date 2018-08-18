@@ -43,8 +43,8 @@
             <li><a href="#gte">gte</a></li>
             <li><a href="#lt">lt</a></li>
             <li><a href="#lte">lte</a></li>
-            <li><a href="#truthy">truthy</a></li>
-            <li><a href="#falsy">falsy</a></li>
+            <li><a href="#istruthy">isTruthy</a></li>
+            <li><a href="#isfalsy">isFalsy</a></li>
             <li><a href="#includes">includes</a></li>
           </ul>
         </li>
@@ -74,13 +74,15 @@
   <div class="container">
     <div class="row">
       <div class="column c6">
-        <div class="header">DataField.js</div>
+        <div class="header">DataField.js — v0.1.0</div>
         <div class="header-medium">Select, sort, filter and perform maths and analysis on your arrays of data</div>
         <div class="header-small">Zero-dependency Javascript library for Node and browsers that works with collections
         </div>
+        <br>
+        <div class="sub">Currently in early beta</div>
       </div>
       <div class="column c6">
-        <div class="button"><a href="https://tomkallen.github.com/datafield">Github</a></div>
+        <div class="button"><a href="https://github.com/tomkallen/datafield">Github</a></div>
         <div class="button">NPM</div>
       </div>
     </div>
@@ -147,9 +149,13 @@
         <div class="monospan">wip</div>
       </div>
     </div>
+
     <div class="row">
       <div class="column c6">
         <div id="api" class="paragraph-title">API</div>
+        <div class="paragraph-title" id="filtering">Basic Operations. Filtering</div>
+
+        <!--WHERE-->
         <div class="row">
           <div class="column c6">
             <div class="sub" id="where">.where(<em>string</em>)</div>
@@ -178,6 +184,8 @@ users
           </div>
           <div class="line"></div>
         </div>
+
+        <!--VALUES-->
         <div class="row">
           <div class="column c6">
             <div class="sub" id="values">.values()</div>
@@ -196,6 +204,8 @@ users
           </div>
           <div class="line"></div>
         </div>
+
+        <!--EXISTS-->
         <div class="row">
           <div class="column c6">
             <div class="sub" id="exists">exists(<em>[property]</em>)</div>
@@ -216,7 +226,7 @@ users.exists()
         </div>
         <div class="row">
           <div class="column c6">
-            <div class="sub" id="has">has(<em>selector</em>)</div>
+            <div class="sub" id="has">has(<em>property</em>)</div>
             <p>Selects entries where property <em><b>exists and has truthy value</b></em>.</p>
             <pre>
               <code class="js">
@@ -231,16 +241,18 @@ users.has('email').where('age').gte(18).median()
         <!--TAKE-->
         <div class="row">
           <div class="column c6">
-            <div class="sub" id="take">take(<em>Number</em>)</div>
+            <div class="sub" id="take">take(<em>[number]</em>)</div>
             <p>Returns <span class="monospan">Number</span> entries from DataField object, starting from the first one.
-              If value is not provided then returns one entry. If value is greater than amount of entries left - returns the rest of them</p>
+              If value is not provided then returns one entry. If value is greater than amount of entries left - returns
+              the rest of them</p>
             <pre>
               <code class="js">
 users.where('age').asc().take(10)
               </code>
             </pre>
             <div class="note">
-              Important! History of <span class="monospan">take()</span> is stored in an instance the method was called on. Consider the following:
+              Important! History of <span class="monospan">take()</span> is stored in an instance the method was called
+              on. Consider the following:
             </div>
             <pre>
               <code class="js">
@@ -251,16 +263,16 @@ restOfUsers = users.take(5) // indices 9 - end of array
               </code>
             </pre>
           </div>
-
           <div class="line"></div>
         </div>
 
         <!--TAKERANDOM-->
         <div class="row">
           <div class="column c6">
-            <div class="sub" id="takerandom">takeRandom(<em>Number</em>)</div>
+            <div class="sub" id="takerandom">takeRandom(<em>[Number]</em>)</div>
             <p>Returns <span class="monospan">Number</span> <em>random</em> entries from DataField object.
-              If value is not provided then returns one entry. Unlike <span class="monospan">take()</span> method does not track its own history</p>
+              If value is not provided then returns one entry. Unlike <span class="monospan">take()</span> method does
+              not track its own history</p>
             <pre>
               <code class="js">
 users.takeRandom() // returns one random entry
@@ -269,6 +281,80 @@ users.takeRandom() // returns one random entry
           </div>
           <div class="line"></div>
         </div>
+
+        <div class="paragraph-title" id="comparison">Comparison</div>
+
+        <!--EQ-->
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="eq">eq(<em>value</em>)</div>
+            <div class="sub" id="not">not(<em>value</em>)</div>
+            <div class="sub" id="gt">gt(<em>value</em>)</div>
+            <div class="sub" id="gte">gte(<em>value</em>)</div>
+            <div class="sub" id="lt">lt(<em>value</em>)</div>
+            <div class="sub" id="lte">lte(<em>value</em>)</div>
+            <p>Selects entries by condition. Currently supports <span class="monospan">Number, String, Date</span>
+              values</p>
+            <pre>
+              <code class="js">
+users
+    .where('age').eq(42)
+    .where('registered').gte(new Date("Jan 1 2017")).lte(new Date("Dec 31 2018"))
+    .where('company').not('COMVOY')
+              </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <!--TRUTHY-->
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="istruthy">isTruthy()</div>
+            <p>Selects entries with <em><b>truthy</b></em> selector value (one that evaluates to <span class="monospan">true</span>
+              in Javascript)</p>
+            <pre>
+              <code class="js">
+users.where('isActive').isTruthy()
+              </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <!--Falsy-->
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="isfalsy">isFalsy()</div>
+            <p>Selects entries with <em><b>falsy</b></em> selector value (one that evaluates to <span class="monospan">false</span>
+              in Javascript)</p>
+            <pre>
+              <code class="js">
+users.where('isActive').isFalsy()
+              </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <!--INCLUDES-->
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="includes">includes(<em>value</em>)</div>
+            <p>Selects entries which <em>array selectors</em> include <b>value</b> Works similar to ES7 <span
+              class="monospan">includes</span></p>
+            <pre>
+              <code class="js">
+users.where('tags').includes('nostrud')
+              </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <div class="paragraph-title" id="sorting">Sorting</div>
+
+
       </div>
 
     </div>
