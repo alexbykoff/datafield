@@ -46,6 +46,7 @@
             <li><a href="#istruthy">isTruthy</a></li>
             <li><a href="#isfalsy">isFalsy</a></li>
             <li><a href="#includes">includes</a></li>
+            <li><a href="#range">range</a></li>
           </ul>
         </li>
         <li class="section"><a class="second-level" href="#sorting">Sorting</a>
@@ -322,7 +323,7 @@ users.where('isActive').isTruthy()
           <div class="line"></div>
         </div>
 
-        <!--Falsy-->
+        <!--FALSY-->
         <div class="row">
           <div class="column c6">
             <div class="sub" id="isfalsy">isFalsy()</div>
@@ -352,7 +353,88 @@ users.where('tags').includes('nostrud')
           <div class="line"></div>
         </div>
 
+        <!--RANGE-->
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="range">range(<em>from</em>, <em>to</em>)</div>
+            <p>Selects entries with selector's value within the given range.</p>
+            <p>Currently supports <span class="monospan">Number, String, Date, Array.length</span></p>
+            <pre>
+              <code class="js">
+const from = new Date("Feb 23 2014")
+const to = new Date("May 12 2017")
+users.where('registered').range(from, to)
+              </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
+
         <div class="paragraph-title" id="sorting">Sorting</div>
+
+        <!--SORT-->
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="sort">sort(<em>config</em>)</div>
+            <p>Sorts entries based on config options</p>
+            <p>Config:</p>
+            <pre>
+              <code class="js">
+{
+  by: 'property', // <-- selector. MANDATORY
+  order: 'asc' / 'desc' // <-- sorting order. OPTIONAL
+  type: 'num' / 'str' / 'date' // type of value. OPTIONAL
+}
+              </code>
+            </pre>
+            <p>If type is not provided library will try to guess it. If you want to sort by <b>date</b> make sure to
+              explicitly add that to the config, otherwise it will be treated as a string</p>
+            <pre>
+              <code class="js">
+users.where('age').gte(18).sort({by: "name.last", order: "desc"})
+              </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <!--ASC-->
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="asc">asc()</div>
+            <div class="sub" id="desc">desc()</div>
+            <p>Sorts by selector in ascending / descending order</p>
+            <pre>
+              <code class="js">
+users.where('company').asc()
+// or
+users.where('age').desc()
+              </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <div class="paragraph-title" id="math">Math operations</div>
+
+        <!--SUM-->
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="sum">sum(<em>property, [strict]</em>)</div>
+            <div class="sub" id="avg">avg(<em>property, [strict]</em>)</div>
+            <div class="sub" id="median">median(<em>property, [strict]</em>)</div>
+            <p>Returns a result of mathematical operation on. Ignored, if selector is not of type <span
+              class="monospan">Number</span>. If <span class="monospan">strict</span> parameter is set to <span
+              class="monospan">false</span> attempts to coerce types</p>
+            <pre>
+              <code class="js">
+users.where('isActive').isTruthy().sum('age') // 2083
+users.where('isActive').isTruthy().sum('age', false) // 2107 – converted string to a number
+              </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
 
 
       </div>
