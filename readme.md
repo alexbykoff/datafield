@@ -10,7 +10,7 @@ Sort, select, filter and perform maths and analysis on your arrays of data
 
 
 [:page_facing_up: Read the documentation here](https://tomkallen.github.io/datafield/)  
-[:cat: Contribute for the greater good](https://github.com/tomkallen/datafield/blob/master/CONTRIBUTNG.md)   
+[:cat: Contribute for the greater good](https://github.com/tomkallen/datafield/blob/master/CONTRIBUTING.md)  
 
 ## What is DataField
 
