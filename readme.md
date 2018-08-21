@@ -9,7 +9,8 @@ Sort, select, filter and perform maths and analysis on your arrays of data
 [![npm version](https://badge.fury.io/js/datafield.svg)](https://badge.fury.io/js/datafield)
 
 
-[Documentation](https://tomkallen.github.io/datafield/)
+[:page_facing_up: Read the documentation here](https://tomkallen.github.io/datafield/)  
+[:cat: Contribute for the greater good](https://github.com/tomkallen/datafield/blob/master/CONTRIBUTNG.md)   
 
 ## What is DataField
 
