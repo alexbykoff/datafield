@@ -1,6 +1,6 @@
 <div style="text-align:center"><img style="width:200px; height:200px" src="https://rawgit.com/tomkallen/datafield/master/docs/datafield.png" /></div>
 
-### DataField
+<h4 style="color:#f00">version 0.2.0 is out</h3>  
 Sort, select, filter and perform maths and analysis on your arrays of data
 
 [![codecov](https://codecov.io/gh/tomkallen/datafield/branch/master/graph/badge.svg)](https://codecov.io/gh/tomkallen/datafield)
@@ -56,6 +56,19 @@ To extract your data use `.values()` or `toArray()`
 Lets filter our data. We need users who are 30 years old or older, but not 41 years old and have at least 2 friends, but less than 10. Also we want our list sorted by last name in descending order. Then we are done so we want an array out of that:
 
     users.where('age').gte(30).not(41).where('friends').range(2, 10).sort({by: 'name.last', order: 'desc'}).toArray()
+    
+Or you can go more *object-oriented* way (this one below is kinda weird request although):
+
+```js
+users.where('age').any({
+  range: [8, 88],
+  lte: 18,
+  gt: 60,
+  not: 42,
+  is: false
+})
+```
+
 
 That's it. API is short and simple.
 Also, read the [Documentation](https://tomkallen.github.io/datafield/)

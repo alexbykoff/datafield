@@ -17,7 +17,7 @@
         "url": "https://github.com/tomkallen/datafield/issues",
         "email": "comradebykoff@gmail.com"
     },
-    "version": "0.1.1",
+    "version": "0.2.0",
     "description": "Sort, select, filter, evaluate and perform maths on your arrays of data",
     "main": "./dist/datafield.min.js",
     "module": "./src/datafield.js",
