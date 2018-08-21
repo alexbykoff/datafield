@@ -1,3 +1,5 @@
+<div style="text-align:center"><img style="width:200px; height:200px" src="https://rawgit.com/tomkallen/datafield/master/docs/datafield.png" /></div>
+
 ### DataField
 Sort, select, filter and perform maths and analysis on your arrays of data
 
