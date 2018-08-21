@@ -18,6 +18,7 @@
 </script>
 
 <div class="menu">
+  <img class="logo" src="./datafield.png" alt="DataField logo">
   <ul>
     <li><a class="first-level" href="#datafield">What is DataField</a></li>
     <li><a class="first-level" href="#how">How It Works</a></li>
@@ -50,6 +51,12 @@
             <li><a href="#range">range</a></li>
           </ul>
         </li>
+        <li class="section"><a class="second-level" href="#complex">Complex filtering (0.2.0+)</a>
+          <ul>
+            <li><a href="#all">all</a></li>
+            <li><a href="#any">any</a></li>
+          </ul>
+        </li>
         <li class="section"><a class="second-level" href="#sorting">Sorting</a>
           <ul>
             <li><a href="#sort">sort</a></li>
@@ -76,12 +83,12 @@
   <div class="container">
     <div class="row">
       <div class="column c6">
-        <div class="header">DataField.js — v0.1.1</div>
+        <div class="header">DataField.js — v0.2.0</div>
         <div class="header-medium">Select, sort, filter and perform maths and analysis on your arrays of data</div>
         <div class="header-small">Zero-dependency Javascript library for Node and browsers that works with collections
         </div>
         <br>
-        <div class="sub">Currently in early beta</div>
+        <div class="sub">Currently in early beta — code contributions are more than welcome</div>
       </div>
       <div class="column c6">
         <div class="button"><a href="https://github.com/tomkallen/datafield">Github</a></div>
@@ -135,6 +142,16 @@
           out of
           that:</p>
         <pre><code class="javascript">users.where('age').gte(30).not(41).where('friends').range(2, 10).sort({by: 'name.last', order: 'desc'}).toArray()</code></pre>
+        <p>Or you can go more <em>object-oriented</em> way (this one below is kinda weird request although):</p>
+        <pre><code class="javascript">
+users.where('age').any({
+  range: [8, 88],
+  lte: 18,
+  gt: 60,
+  not: 42,
+  is: false
+})
+  .toArray()</code></pre>
         <p>That's it. API is short and simple. Look to the left – there is a list of methods.</p>
         <div class="note">Open console in your browser. There is a variable <b>users</b> there you can play with — it is
           a DataField instance with 100 entries in it.
@@ -382,6 +399,46 @@ const from = new Date("Feb 23 2014")
 const to = new Date("May 12 2017")
 users.where('registered').range(from, to)
               </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <div class="paragraph-title" id="complex">Complex filtering</div>
+
+        <!--ALL ANY-->
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="all">all(<em>config</em>)</div>
+            <div class="sub" id="any">any(<em>config</em>)</div>
+            <p>Selects entries based on configuration object. </p>
+            <p><span class="monospan dark">.all()</span> is an <span class="monospan">AND</span> logic — entry must
+              satisfy
+              <b>all</b> conditions </p>
+            <p><span class="monospan dark">.any()</span> is an <span class="monospan">OR</span>-like filter — entry must
+              satisfy <b>at least one</b> condition</p>
+            <p>possible properties: <span class="monospan">gt, gte, lt, lte, eq, not, range, is</span></p>
+            <div class="note">
+              <div class="monospan dark">is</div>
+              is a boolean condition same as <a href="#istruthy">isTruthy</a> / <a
+              href="#isfalsy">isFalsy</a> methods
+            </div>
+            <div class="note">
+              <div class="monospan dark">range</div>
+              value should be an array of with the length of 2 —
+              <div class="monospan">[from, to]</div>
+            </div>
+            <pre>
+              <code class="js">
+users.where('age').all({
+  range: [16, 33],
+  not: 27
+})
+
+users.where('age').any({
+  is: false,
+  eq: 42
+})</code>
             </pre>
           </div>
           <div class="line"></div>

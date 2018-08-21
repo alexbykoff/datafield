@@ -1,4 +1,5 @@
 import { findProp, randomTakes, checkTypes } from './utils'
+import { isGreater, isLess, isLessOrEq, isGreaterOrEq, isEq, isNotEq, isLike } from './filter'
 import error from './errors'
 
 // TODO: Boolean comparison
@@ -51,130 +52,61 @@ export default class DataField {
 
   isTruthy () {
     if (!this.selector) error('NO_SEL')
-    const data = this.data.filter(el => findProp(el, this.selector))
-    return new DataField(data)
+    const data = this.data.filter(el => isLike(el, this.selector))
+    return new DataField(data, this.selector)
   }
 
   isFalsy () {
     if (!this.selector) error('NO_SEL')
-    const data = this.data.filter(el => !findProp(el, this.selector))
-    return new DataField(data)
+    const data = this.data.filter(el => !isLike(el, this.selector))
+    return new DataField(data, this.selector)
   }
 
   eq (value) {
     if (!this.selector) return this
-    let data
-    if (value instanceof Date) {
-      data = this.data.filter(el => new Date(findProp(el, this.selector)).getTime() === value.getTime())
-      return new DataField(data, this.selector)
-    }
-    data = this.data.filter(el => {
-      let propValue = findProp(el, this.selector)
-      if (Array.isArray(propValue)) propValue = propValue.length
-      return propValue === value
-    }
-    )
+    const data = this.data.filter((el) => isEq(el, this.selector, value))
     return new DataField(data, this.selector)
   }
 
   not (value) {
     if (!this.selector) return this
-    let data
-    if (value instanceof Date) {
-      data = this.data.filter(el => new Date(findProp(el, this.selector)).getTime() !== value.getTime())
-      return new DataField(data, this.selector)
-    }
-    data = this.data.filter(el => {
-      let propValue = findProp(el, this.selector)
-      if (Array.isArray(propValue)) propValue = propValue.length
-      return propValue !== value
-    }
-    )
+    const data = this.data.filter((el) => isNotEq(el, this.selector, value))
     return new DataField(data, this.selector)
   }
 
   gt (value) {
     if (!this.selector || value === undefined) return this
-    let data
-    if (value instanceof Date) {
-      data = this.data.filter(el => new Date(findProp(el, this.selector)) > value)
-      return new DataField(data, this.selector)
-    }
-    data = this.data.filter(el => {
-      let propValue = findProp(el, this.selector)
-      if (Array.isArray(propValue)) propValue = propValue.length
-      return propValue > value
-    }
-    )
+    const data = this.data.filter((el) => isGreater(el, this.selector, value))
     return new DataField(data, this.selector)
   }
 
   lt (value) {
     if (!this.selector || value === undefined) return this
-    let data
-    if (value instanceof Date) {
-      data = this.data.filter(el => new Date(findProp(el, this.selector)) < value)
-      return new DataField(data, this.selector)
-    }
-    data = this.data.filter(el => {
-      let propValue = findProp(el, this.selector)
-      if (Array.isArray(propValue)) propValue = propValue.length
-      return propValue < value
-    }
-    )
+    const data = this.data.filter((el) => isLess(el, this.selector, value))
     return new DataField(data, this.selector)
   }
 
   gte (value) {
     if (!this.selector || value === undefined) return this
-    let data
-    if (value instanceof Date) {
-      data = this.data.filter(el => new Date(findProp(el, this.selector)) >= value)
-      return new DataField(data, this.selector)
-    }
-    data = this.data.filter(el => {
-      let propValue = findProp(el, this.selector)
-      if (Array.isArray(propValue)) propValue = propValue.length
-      return propValue >= value
-    }
-    )
+    const data = this.data.filter((el) => isGreaterOrEq(el, this.selector, value))
     return new DataField(data, this.selector)
   }
 
   lte (value) {
     if (!this.selector || value === undefined) return this
-    let data
-    if (value instanceof Date) {
-      data = this.data.filter(el => new Date(findProp(el, this.selector)) <= value)
-      return new DataField(data, this.selector)
-    }
-    data = this.data.filter(el => {
-      let propValue = findProp(el, this.selector)
-      if (Array.isArray(propValue)) propValue = propValue.length
-      return propValue <= value
-    }
-    )
+    const data = this.data.filter((el) => isLessOrEq(el, this.selector, value))
     return new DataField(data, this.selector)
   }
 
   range (from, to) {
+    if (Array.isArray(from) && from.length === 2) {
+      [from, to] = [from[0], from[1]]
+    }
     if (!checkTypes(from, to)) error('RANGE_ARG')
     if (!this.selector) return this
-    let data
-    if (from instanceof Date) {
-      data = this.data.filter(el => {
-        const val = findProp(el, this.selector)
-        return new Date(val) >= from && new Date(val) < to
-      })
-      return new DataField(data, this.selector)
-    }
-    data = this.data.filter(el => {
-      const val = findProp(el, this.selector)
-      if (Array.isArray(val)) {
-        return val.length >= from && val.length < to
-      }
-      return val >= from && val < to
-    })
+    const data = this.data
+      .filter((el) => isGreaterOrEq(el, this.selector, from))
+      .filter((el) => isLess(el, this.selector, to))
     return new DataField(data, this.selector)
   }
 
@@ -185,7 +117,23 @@ export default class DataField {
       const prop = findProp(el, this.selector)
       return Array.isArray(prop) && prop.includes(value)
     })
-    return new DataField(data)
+    return new DataField(data, this.selector)
+  }
+
+  some (config = {}) {
+    return this.any(config)
+  }
+
+  any (config = {}) {
+    if (typeof config !== 'object' || !Object.keys(config).length) return this
+    const data = this.data.filter((el) => this.__checkForAny(el, config))
+    return new DataField(data, this.selector)
+  }
+
+  all (config = {}) {
+    if (typeof config !== 'object' || !Object.keys(config).length) return this
+    const data = this.data.filter((el) => this.__checkForAll(el, config))
+    return new DataField(data, this.selector)
   }
 
   sort ({by, order = 'asc', type} = {}) {
@@ -241,22 +189,19 @@ export default class DataField {
     type = type || this.__getType()
     const prop = this.selector
     switch (type) {
-      case 'n':
       case 'num':
       case 'number':
         data = this.data.slice().sort((a, b) => findProp(b, prop) - findProp(a, prop))
         break
-      case 'string':
       case 'str':
-      case 's':
+      case 'string':
         data = this.data.slice().sort((a, b) => String(findProp(b, prop)).localeCompare(String(findProp(a, prop))))
         break
       case 'date':
-      case 'd':
         data = this.data.slice().sort((a, b) => Number(new Date(findProp(b, prop))) - Number(new Date(findProp(a, prop))))
         break
-      case 'array':
       case 'arr':
+      case 'array':
         data = this.data.slice().sort((a, b) => {
           const _a = findProp(a, prop)
           const _b = findProp(b, prop)
@@ -360,5 +305,78 @@ export default class DataField {
         return prop
       }
     }
+  }
+
+  __checkForAny (el, config) {
+    const props = Object.keys(config)
+    for (let prop of props) {
+      switch (prop) {
+        case 'gt':
+          if (isGreater(el, this.selector, config[prop])) return true
+          break
+        case 'gte':
+          if (isGreaterOrEq(el, this.selector, config[prop])) return true
+          break
+        case 'lt':
+          if (isLess(el, this.selector, config[prop])) return true
+          break
+        case 'lte':
+          if (isLessOrEq(el, this.selector, config[prop])) return true
+          break
+        case 'eq':
+          if (isEq(el, this.selector, config[prop])) return true
+          break
+        case 'not':
+          if (isNotEq(el, this.selector, config[prop])) return true
+          break
+        case 'is':
+          if (config[prop] === isLike(el, this.selector)) return true
+          break
+        case 'range':
+          if (
+            Array.isArray(config[prop]) && config[prop].length === 2 &&
+            isGreaterOrEq(el, this.selector, config[prop][0]) &&
+            isLess(el, this.selector, config[prop][1])) return true
+          break
+        default:
+      }
+    }
+  }
+
+  __checkForAll (el, config) {
+    const props = Object.keys(config)
+    for (let prop of props) {
+      switch (prop) {
+        case 'gt':
+          if (!isGreater(el, this.selector, config[prop])) return
+          break
+        case 'gte':
+          if (!isGreaterOrEq(el, this.selector, config[prop])) return
+          break
+        case 'lt':
+          if (!isLess(el, this.selector, config[prop])) return
+          break
+        case 'lte':
+          if (!isLessOrEq(el, this.selector, config[prop])) return
+          break
+        case 'eq':
+          if (!isEq(el, this.selector, config[prop])) return
+          break
+        case 'not':
+          if (!isNotEq(el, this.selector, config[prop])) return
+          break
+        case 'is':
+          if (config[prop] !== isLike(el, this.selector)) return
+          break
+        case 'range':
+          if (
+            Array.isArray(config[prop]) && config[prop].length === 2 &&
+            !(isGreaterOrEq(el, this.selector, config[prop][0]) &&
+              isLess(el, this.selector, config[prop][1]))) return
+          break
+        default:
+      }
+    }
+    return true
   }
 }

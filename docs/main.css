@@ -11,12 +11,11 @@ html, body {
 }
 
 .menu {
-  padding-top: 3rem;
   width: 16rem;
   position: fixed;
   top: 0;
   bottom: 0;
-  background-color: #b1ffce;
+  background-color: #ffebd4;
   overflow-x: hidden;
   overflow-y: auto;
   height: 100vh;
@@ -88,6 +87,7 @@ h1 {
   font-weight: bold;
   padding-left: 1rem;
 }
+
 .main pre {
   padding: 0 !important;
   margin: 0 !important;
@@ -97,4 +97,10 @@ h1 {
 .main pre code, .main pre code span {
   font-size: 14px !important;
   line-height: 1.25;
+}
+
+.logo {
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
 }

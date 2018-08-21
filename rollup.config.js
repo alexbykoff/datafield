@@ -16,6 +16,6 @@ export default [{
     resolve(),
     commonjs(),
     terser(),
-    buble()
+    buble({transforms: { dangerousForOf: true }})
   ]
 }]
