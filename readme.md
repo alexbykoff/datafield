@@ -1,4 +1,4 @@
-<div style="text-align:center"><img style="width:200px; height:200px" src="https://rawgit.com/tomkallen/datafield/master/docs/datafield.png" /></div>
+<div style="text-align:center"><img width="200" height="200" src="https://rawgit.com/tomkallen/datafield/master/docs/datafield.png" /></div>
 
 <h4 style="color:#f00">version 0.2.0 is out</h3>  
 Sort, select, filter and perform maths and analysis on your arrays of data
