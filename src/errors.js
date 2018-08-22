@@ -8,6 +8,8 @@ export default function error (code) {
       throw new Error('DataField range() method accepts 2 arguments of the same type')
     case 'NO_SEL':
       throw new Error('DataField selector not specified, use .where(selector)')
+    case 'NO_SEL_OR_VAL':
+      throw new Error('DataField selector or value not specified, use .where(selector) and check method arguments')
     default:
       throw new Error('DataField error')
   }
