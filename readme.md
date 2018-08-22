@@ -1,6 +1,7 @@
-<div style="text-align:center"><img width="200" height="200" src="https://rawgit.com/tomkallen/datafield/master/docs/datafield.png" /></div>
+<p align="center">
+  <img src="https://rawgit.com/tomkallen/datafield/master/docs/datafield.png">
+</p>
 
-<h4 style="color:#f00">version 0.2.0 is out</h3>  
 Sort, select, filter and perform maths and analysis on your arrays of data
 
 [![codecov](https://codecov.io/gh/tomkallen/datafield/branch/master/graph/badge.svg)](https://codecov.io/gh/tomkallen/datafield)
