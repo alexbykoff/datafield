@@ -2,10 +2,8 @@
   <img src="https://rawgit.com/tomkallen/datafield/master/docs/datafield.png">
 </p>
 
-Sort, select, filter and perform maths and analysis on your arrays of data
-
-<h4 align="center">version 0.2.1 is out</h4>
-
+<h3 align="center">Sort, select, filter and perform maths and analysis on your arrays of data</h3>
+<h4 color="blue" align="center">:rabbit2: version 0.2.1 is out</h4>
 
 [![codecov](https://codecov.io/gh/tomkallen/datafield/branch/master/graph/badge.svg)](https://codecov.io/gh/tomkallen/datafield)
 [![Build Status](https://travis-ci.org/tomkallen/datafield.svg?branch=master)](https://travis-ci.org/tomkallen/datafield)
