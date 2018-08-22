@@ -2,7 +2,6 @@ import { findProp, randomTakes, checkTypes } from './utils'
 import { isGreater, isLess, isLessOrEq, isGreaterOrEq, isEq, isNotEq, isLike } from './filter'
 import error from './errors'
 
-// TODO: Boolean comparison
 export default class DataField {
   constructor (array = error('NO_CONS'), selector) {
     if (!Array.isArray(array)) error('NOT_ARRAY')
@@ -25,9 +24,9 @@ export default class DataField {
   }
 
   take (number = 1) {
-    const data = new DataField(this.data.slice(this.caret, this.caret + number), this.selector)
+    const data = this.data.slice(this.caret, this.caret + number)
     this.caret += number
-    return data
+    return new DataField(data, this.selector)
   }
 
   get length () {
@@ -63,37 +62,37 @@ export default class DataField {
   }
 
   eq (value) {
-    if (!this.selector) return this
+    if (!this.selector || value === undefined) error('NO_SEL_OR_VAL')
     const data = this.data.filter((el) => isEq(el, this.selector, value))
     return new DataField(data, this.selector)
   }
 
   not (value) {
-    if (!this.selector) return this
+    if (!this.selector || value === undefined) error('NO_SEL_OR_VAL')
     const data = this.data.filter((el) => isNotEq(el, this.selector, value))
     return new DataField(data, this.selector)
   }
 
   gt (value) {
-    if (!this.selector || value === undefined) return this
+    if (!this.selector || value === undefined) error('NO_SEL_OR_VAL')
     const data = this.data.filter((el) => isGreater(el, this.selector, value))
     return new DataField(data, this.selector)
   }
 
   lt (value) {
-    if (!this.selector || value === undefined) return this
+    if (!this.selector || value === undefined) error('NO_SEL_OR_VAL')
     const data = this.data.filter((el) => isLess(el, this.selector, value))
     return new DataField(data, this.selector)
   }
 
   gte (value) {
-    if (!this.selector || value === undefined) return this
+    if (!this.selector || value === undefined) error('NO_SEL_OR_VAL')
     const data = this.data.filter((el) => isGreaterOrEq(el, this.selector, value))
     return new DataField(data, this.selector)
   }
 
   lte (value) {
-    if (!this.selector || value === undefined) return this
+    if (!this.selector || value === undefined) error('NO_SEL_OR_VAL')
     const data = this.data.filter((el) => isLessOrEq(el, this.selector, value))
     return new DataField(data, this.selector)
   }
@@ -103,7 +102,7 @@ export default class DataField {
       [from, to] = [from[0], from[1]]
     }
     if (!checkTypes(from, to)) error('RANGE_ARG')
-    if (!this.selector) return this
+    if (!this.selector) error('NO_SEL')
     const data = this.data
       .filter((el) => isGreaterOrEq(el, this.selector, from))
       .filter((el) => isLess(el, this.selector, to))
@@ -118,10 +117,6 @@ export default class DataField {
       return Array.isArray(prop) && prop.includes(value)
     })
     return new DataField(data, this.selector)
-  }
-
-  some (config = {}) {
-    return this.any(config)
   }
 
   any (config = {}) {

@@ -16,8 +16,8 @@ describe('Comparison', function () {
       expect(dataField.where('age').eq(48).length).toEqual(2)
     })
 
-    it('should return unchanged dataset if no selector is present', function () {
-      expect(dataField.where().eq(48).length).toEqual(100)
+    it('should throw error if no selector is present', function () {
+      expect(() => dataField.where().eq(48)).toThrow('DataField selector or value not specified, use .where(selector) and check method arguments')
     })
 
     it('should remove 1 item with matching date', function () {
@@ -34,8 +34,8 @@ describe('Comparison', function () {
       expect(dataField.where('age').not(48).length).toEqual(98)
     })
 
-    it('should return unchanged dataset if no selector is present', function () {
-      expect(dataField.where().not().length).toEqual(100)
+    it('should should throw error if no selector is present', function () {
+      expect(() => dataField.where().not()).toThrow('DataField selector or value not specified, use .where(selector) and check method arguments')
     })
 
     it('should remove 1 item with matching date', function () {
@@ -52,12 +52,12 @@ describe('Comparison', function () {
       expect(dataField.where('age').gt(48).length).toEqual(42)
     })
 
-    it('should return unchanged dataset if no selector is present', function () {
-      expect(dataField.where().gt(48).length).toEqual(100)
+    it('should throw error if no selector is present', function () {
+      expect(() => dataField.where().gt(48)).toThrow('DataField selector or value not specified, use .where(selector) and check method arguments')
     })
 
-    it('should return unchanged dataset if no value is present', function () {
-      expect(dataField.where('age').gt().length).toEqual(100)
+    it('should throw error if no value is present', function () {
+      expect(() => dataField.where('age').gt()).toThrow('DataField selector or value not specified, use .where(selector) and check method arguments')
     })
 
     it('should filter by date', function () {
@@ -74,12 +74,12 @@ describe('Comparison', function () {
       expect(dataField.where('age').gte(48).length).toEqual(44)
     })
 
-    it('should return unchanged dataset if no selector is present', function () {
-      expect(dataField.where().gte(48).length).toEqual(100)
+    it('should throw error if no selector is present', function () {
+      expect(() => dataField.where().gte(48)).toThrow('DataField selector or value not specified, use .where(selector) and check method arguments')
     })
 
-    it('should return unchanged dataset if no value is present', function () {
-      expect(dataField.where('age').gte().length).toEqual(100)
+    it('should throw error if no value is present', function () {
+      expect(() => dataField.where('age').gte()).toThrow('DataField selector or value not specified, use .where(selector) and check method arguments')
     })
 
     it('should filter by date', function () {
@@ -97,11 +97,11 @@ describe('Comparison', function () {
     })
 
     it('should return unchanged dataset if no selector is present', function () {
-      expect(dataField.where().lt(48).length).toEqual(100)
+      expect(() => dataField.where().lt(48)).toThrow('DataField selector or value not specified, use .where(selector) and check method arguments')
     })
 
-    it('should return unchanged dataset if no value is present', function () {
-      expect(dataField.where('age').lt().length).toEqual(100)
+    it('should should throw error if no value is present', function () {
+      expect(() => dataField.where('age').lt()).toThrow('DataField selector or value not specified, use .where(selector) and check method arguments')
     })
 
     it('should filter by date', function () {
@@ -119,12 +119,12 @@ describe('Comparison', function () {
       expect(dataField.where('age').lte(48).length).toEqual(58)
     })
 
-    it('should return unchanged dataset if no selector is present', function () {
-      expect(dataField.where().lte(48).length).toEqual(100)
+    it('should should throw error if no selector is present', function () {
+      expect(() => dataField.where().lte(48)).toThrow('DataField selector or value not specified, use .where(selector) and check method arguments')
     })
 
-    it('should return unchanged dataset if no value is present', function () {
-      expect(dataField.where('age').lte().length).toEqual(100)
+    it('should throw Error if no value is present', function () {
+      expect(() => dataField.where('age').lte()).toThrow('DataField selector or value not specified, use .where(selector) and check method arguments')
     })
 
     it('should filter by date', function () {
