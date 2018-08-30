@@ -3,7 +3,7 @@
 </p>
 
 <h3 align="center">Sort, select, filter and perform maths and analysis on your arrays of data</h3>
-<h4 color="blue" align="center">:rabbit2: version 0.2.1 is out</h4>
+<h4 color="blue" align="center">:koala: version 0.2.2 is out</h4>
 
 [![codecov](https://codecov.io/gh/tomkallen/datafield/branch/master/graph/badge.svg)](https://codecov.io/gh/tomkallen/datafield)
 [![Build Status](https://travis-ci.org/tomkallen/datafield.svg?branch=master)](https://travis-ci.org/tomkallen/datafield)
