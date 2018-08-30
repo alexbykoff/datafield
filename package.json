@@ -41,7 +41,7 @@
             "!**/test/**"
         ]
     },
-    "author": "Alexey Bykov",
+    "author": "Alex Bykov",
     "license": "MIT",
     "devDependencies": {
         "babel-preset-env": "1.7.0",
