@@ -211,7 +211,7 @@ export default class DataField {
     return new DataField(data, this.selector)
   }
 
-  sum (prop, strict = true) {
+  sum (prop = error('NO_MATH_SEL'), strict = true) {
     this.__reset()
     return this.data.reduce((sum, el) => {
       const value = findProp(el, prop)
@@ -220,7 +220,7 @@ export default class DataField {
     }, 0)
   }
 
-  avg (prop, strict = true) {
+  avg (prop = error('NO_MATH_SEL'), strict = true) {
     this.__reset()
     let sum = 0
     let count = 0
@@ -241,7 +241,7 @@ export default class DataField {
     return count ? sum / count : 0
   }
 
-  median (prop, strict = true) {
+  median (prop = error('NO_MATH_SEL'), strict = true) {
     this.__reset()
     const values = []
     this.data.forEach(el => {

@@ -10,6 +10,8 @@ export default function error (code) {
       throw new Error('DataField selector not specified, use .where(selector)')
     case 'NO_SEL_OR_VAL':
       throw new Error('DataField selector or value not specified, use .where(selector) and check method arguments')
+    case 'NO_MATH_SEL':
+      throw new Error('DataField selector should be passed as an argument when using math methods')
     default:
       throw new Error('DataField error')
   }

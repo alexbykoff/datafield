@@ -25,6 +25,11 @@ describe('Math operations', function () {
       expect(data.sum('age')).toEqual(2608)
     })
 
+    it('should throw an error if no arguments', function () {
+      const data = dataField.where('age').gt(45)
+      expect(() => data.sum()).toThrow('DataField selector should be passed as an argument when using math methods')
+    })
+
     it('should sum ages from 2 selections without WITH type coercion', function () {
       const dataHigh = dataField.where('age').gt(45)
       const dataLow = dataField.where('age').lte(45)
@@ -40,6 +45,11 @@ describe('Math operations', function () {
 
     it('should get average for age WITHOUT type coercion', function () {
       expect(dataField.avg('age')).toEqual(43.36363636363637)
+    })
+
+    it('should throw an error if no arguments', function () {
+      const data = dataField.where('age').gt(45)
+      expect(() => data.avg()).toThrow('DataField selector should be passed as an argument when using math methods')
     })
   })
 
@@ -58,6 +68,11 @@ describe('Math operations', function () {
 
     it('should return value if there is only 1 value', function () {
       expect(new DataField([{value: 42}]).median('value')).toEqual(42)
+    })
+
+    it('should throw an error if no arguments', function () {
+      const data = dataField.where('age').gt(45)
+      expect(() => data.median()).toThrow('DataField selector should be passed as an argument when using math methods')
     })
   })
 
