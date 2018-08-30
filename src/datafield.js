@@ -131,7 +131,7 @@ export default class DataField {
     return new DataField(data, this.selector)
   }
 
-  sort ({by, order = 'asc', type} = {}) {
+  sort ({ by, order = 'asc', type } = {}) {
     const prop = this.__findFirstOccurrence(by)
     if (!by || !prop) return this
     if (order !== 'desc') order = 'asc'
