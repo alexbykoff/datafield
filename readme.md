@@ -9,6 +9,7 @@
 [![Build Status](https://travis-ci.org/tomkallen/datafield.svg?branch=master)](https://travis-ci.org/tomkallen/datafield)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![npm version](https://badge.fury.io/js/datafield.svg)](https://badge.fury.io/js/datafield)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
 [:page_facing_up: Read the documentation here](https://tomkallen.github.io/datafield/)  
