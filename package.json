@@ -10,14 +10,14 @@
     ],
     "homepage": "https://tomkallen.github.io/datafield/",
     "repository": {
-        "type" : "git",
-        "url" : "https://github.com/tomkallen/datafield.git"
+        "type": "git",
+        "url": "https://github.com/tomkallen/datafield.git"
     },
     "bugs": {
         "url": "https://github.com/tomkallen/datafield/issues",
         "email": "comradebykoff@gmail.com"
     },
-    "version": "0.2.2",
+    "version": "0.3.0",
     "description": "Sort, select, filter, evaluate and perform maths on your arrays of data",
     "main": "./dist/datafield.min.js",
     "module": "./src/datafield.js",
@@ -41,19 +41,25 @@
             "!**/test/**"
         ]
     },
+    "standard": {
+        "parser": "babel-eslint"
+    },
     "author": "Alex Bykov",
     "license": "MIT",
     "devDependencies": {
+        "babel-cli": "6.26.0",
+        "babel-eslint": "10.0.1",
         "babel-preset-env": "1.7.0",
-        "codecov": "3.0.4",
-        "husky": "1.0.0-rc.13",
-        "jest": "23.5.0",
+        "babel-preset-flow": "6.23.0",
+        "codecov": "3.1.0",
+        "husky": "1.1.4",
+        "jest": "23.6.0",
         "rimraf": "2.6.2",
-        "rollup": "0.65.0",
-        "rollup-plugin-buble": "0.19.2",
-        "rollup-plugin-commonjs": "9.1.6",
-        "rollup-plugin-node-resolve": "3.3.0",
-        "rollup-plugin-terser": "2.0.1",
+        "rollup": "0.67.1",
+        "rollup-plugin-buble": "0.19.4",
+        "rollup-plugin-commonjs": "9.2.0",
+        "rollup-plugin-node-resolve": "3.4.0",
+        "rollup-plugin-terser": "3.0.0",
         "snazzy": "8.0.0",
         "standard": "12.0.1"
     }

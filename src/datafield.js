@@ -1,13 +1,25 @@
-import { findProp, randomTakes, checkTypes } from './utils'
-import { isGreater, isLess, isLessOrEq, isGreaterOrEq, isEq, isNotEq, isLike } from './filter'
+import {
+  findProp,
+  randomTakes,
+  checkTypes
+} from './utils'
+import {
+  isGreater,
+  isLess,
+  isLessOrEq,
+  isGreaterOrEq,
+  isEq,
+  isNotEq,
+  isLike
+} from './filter'
 import error from './errors'
 
 export default class DataField {
   constructor (array = error('NO_CONS'), selector) {
     if (!Array.isArray(array)) error('NOT_ARRAY')
     this.data = array.slice(0) // https://jsperf.com/cloning-arrays/3
-    this.caret = 0
     this.selector = selector
+    this.caret = 0
   }
 
   exists (prop = this.selector) {
@@ -131,7 +143,11 @@ export default class DataField {
     return new DataField(data, this.selector)
   }
 
-  sort ({ by, order = 'asc', type } = {}) {
+  sort ({
+    by,
+    order = 'asc',
+    type
+  } = {}) {
     const prop = this.__findFirstOccurrence(by)
     if (!by || !prop) return this
     if (order !== 'desc') order = 'asc'
