@@ -82,6 +82,37 @@ describe('General', function () {
       expect(dataField.where('tags').includes('ad').length).toEqual(5)
     })
   })
+
+  describe('Pick Test', function () {
+    it('should keep even elements', function () {
+      expect(dataField.pick('even').length).toEqual(50)
+    })
+
+    it('should keep even elements', function () {
+      expect(dataField.pick('odd').length).toEqual(50)
+    })
+
+    it('should keep every 3rd element', function () {
+      expect(dataField.pick('3n').length).toEqual(34)
+    })
+
+    it('should keep every 5th element', function () {
+      expect(dataField.pick('5n').length).toEqual(20)
+    })
+
+    it('should throw an error if argument is not a string', function () {
+      expect(() => dataField.pick(42)).toThrow('DataField selector .pick() expects a string')
+    })
+
+    it('should throw an error if argument is not right', function () {
+      expect(() => dataField.pick("wrong string")).toThrow('DataField selector .pick() should have a proper argument value — "even", "odd" or "{number}n" (i.e. 3n for every third element)')
+    })
+
+    it('should return this if no argument provided', function () {
+      expect(dataField.pick().length).toEqual(100)
+    })
+  })
+
 })
 
 

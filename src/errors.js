@@ -12,6 +12,10 @@ export default function error (code) {
       throw new Error('DataField selector or value not specified, use .where(selector) and check method arguments')
     case 'NO_MATH_SEL':
       throw new Error('DataField selector should be passed as an argument when using math methods')
+    case 'NO_STR_VALUE':
+      throw new Error('DataField selector .pick() expects a string')
+    case 'BAD_PICK_ARG':
+      throw new Error('DataField selector .pick() should have a proper argument value — "even", "odd" or "{number}n" (i.e. 3n for every third element)')
     default:
       throw new Error('DataField error')
   }

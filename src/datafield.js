@@ -143,11 +143,20 @@ export default class DataField {
     return new DataField(data, this.selector)
   }
 
-  sort ({
-    by,
-    order = 'asc',
-    type
-  } = {}) {
+  pick (value) {
+    if (!value) return this
+    if (typeof value !== 'string') error('NO_STR_VALUE')
+    value = value.toLowerCase()
+    if (value === 'even') return new DataField(this.data.filter((el, i) => !(i % 2)))
+    if (value === 'odd') return new DataField(this.data.filter((el, i) => i % 2))
+    if (value.slice(-1) === 'n' && !!Number(value.slice(0, -1))) {
+      const rule = Number(value.slice(0, -1))
+      return new DataField(this.data.filter((el, i) => !(i % rule)))
+    }
+    error('BAD_PICK_ARG')
+  }
+
+  sort ({ by, order = 'asc', type } = {}) {
     const prop = this.__findFirstOccurrence(by)
     if (!by || !prop) return this
     if (order !== 'desc') order = 'asc'

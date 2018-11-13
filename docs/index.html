@@ -34,6 +34,7 @@
             <li><a href="#has">has</a></li>
             <li><a href="#take">take</a></li>
             <li><a href="#takerandom">takeRandom</a></li>
+            <li><a href="#pick">pick (0.3.0+)</a></li>
             <li><a href="#length">length</a></li>
           </ul>
         </li>
@@ -83,7 +84,7 @@
   <div class="container">
     <div class="row">
       <div class="column c6">
-        <div class="header">DataField.js — v0.2.2</div>
+        <div class="header">DataField.js — v0.3.0</div>
         <div class="header-medium">Select, sort, filter and perform maths and analysis on your arrays of data</div>
         <div class="header-small">Zero-dependency Javascript library for Node and browsers that works with collections
         </div>
@@ -297,6 +298,23 @@ restOfUsers = users.take(5) // indices 9 - end of array
             <pre>
               <code class="js">
 users.takeRandom() // returns one random entry
+              </code>
+            </pre>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <!--PICK-->
+        <div class="row">
+          <div class="column c6">
+            <div class="sub" id="pick">pick(<em>[String]</em>)</div>
+            <p>Returns entries from DataField object based filtered by arguments.
+              If value is not provided then returns unchanged data set</p>
+            <p>Possible values — "even", "odd" or "{number}n" (i.e. "3n") — return new DataField of every other, every
+              odd or every 3rd item respectively</p>
+            <pre>
+              <code class="js">
+users.pick("5n") // returns every 5th item in the data set
               </code>
             </pre>
           </div>
